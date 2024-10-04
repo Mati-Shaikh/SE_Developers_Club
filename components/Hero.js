@@ -1,3 +1,5 @@
+'use client';
+
 const Hero = () => {
     return (
       <div className="bg-blue-600 text-white py-20">
