@@ -1,6 +1,6 @@
-const dbConnect = require("../../../lib/dbConnect");
-const User = require("../../../models/User");
-const { NextResponse } = require("next/server");
+import dbConnect from "@/app/lib/dbConnect";  
+import User from "@/app/models/User";        
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const body = await req.json();
