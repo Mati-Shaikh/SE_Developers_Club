@@ -40,21 +40,21 @@ const Gallery = () => {
             src="/pixels.jpg"
             height={200}
             width={200}
-            className="w-full rounded-lg object-cover"
+            className="w-full rounded-lg object-cover object-center"
             alt="ses workshops and event"
           />
           <Image
             src="/pixels.jpg"
             height={200}
             width={200}
-            className="w-full rounded-lg object-cover"
+            className="w-full rounded-lg object-cover object-center"
             alt="ses workshops and event"
           />
           <Image
             src="/pixels.jpg"
             height={200}
             width={200}
-            className="w-full rounded-lg object-cover"
+            className="w-full rounded-lg object-cover object-center"
             alt="ses workshops and event"
           />
         </div>
@@ -65,7 +65,7 @@ const Gallery = () => {
               src="/pixels.jpg"
               height={200}
               width={200}
-              className="w-full rounded-lg object-cover h-60 opacity-80"
+              className="w-full rounded-lg object-cover object-center h-60 opacity-80"
               alt="ses workshops and event"
             />
             <div className="h-60 absolute top-0 left-0 p-4 space-y-2 rounded-lg">
