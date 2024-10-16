@@ -13,8 +13,8 @@ export default function RootLayout({ children }) {
       <body className="bg-dark">
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
-      <Footer />
     </html>
   );
 }
