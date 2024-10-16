@@ -1,83 +1,83 @@
-// components/Footer.js
+
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-10">
-        <div className='grid grid-cols-2'>         
-            <div className="flex flex-col mx-8 space-y-4">
-                <div className="flex items-center space-x-2">
-                    {/* <img src="/path-to-logo.png" alt="Logo" className="h-8 w-8" /> */}
-                    <span className="font-bold text-lg">Destinize</span>
-                </div>
-                <p className="text-gray-400">
-                    Destinize adalah website atau layanan aplikasi yang membantu kamu memilih 
-                    atau merekomendasikan tempat yang dijuluki ‘hidden gems’ agar lebih dikenal dan ramai
-                    <a href="#" className="text-blue-400"> Baca Selengkapnya</a>
-                </p>
-                <div className="space-y-1">
-                    <p>📞 0851-5616-2840</p>
-                    <p>📧 syaokay@gmail.com</p>
-                    <p>📍 Ciamis, Jawa Barat. Indonesia</p>
-                    <p>📞 +1-212-9876543</p>
-                </div>
+    <>
+    <div className="bg-black w-full flex flex-col md:flex-row justify-center items-center text-white py-10 space-y-5">
+        {/* Left Column - Contact Info */}
+        <div className="flex flex-col mx-8 space-y-4">
+            <p className="text-gray-400 text-center md:text-left">
+                Destinize adalah website atau layanan aplikasi yang membantu kamu memilih
+                atau merekomendasikan tempat yang dijuluki ‘hidden gems’ agar lebih dikenal dan ramai
+                <Link href="#" className="text-blue-400"> Baca Selengkapnya</Link>
+            </p>
+            <div className="space-y-1 text-center md:text-left">
+                <p>✆ 0851-5616-2840</p>
+                <p>✉︎ syaokay@gmail.com</p>
+                <p>⚲ Ciamis, Jawa Barat. Indonesia</p>
+                <p>🖨 +1-212-9876543</p>
             </div>
-            <div className="flex flex-row gap-8 mr-8">
-                    <div className="basis-1/3">
-                    {/* <h3 className="text">About Us</h3> */}
-                    <ul className="space-y-1 text-gray-400">
-                        <li><a href="#" className="hover:text-blue-400">About Us</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Blog</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Karir</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Pekerjaan</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Berita</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Galeri</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Afiliasi</a></li>
-                    </ul>
-                    </div>
+        </div>
 
-                    <div className="basis-1/3">
-                    {/* <h3 className="font-semibold">Contact Us</h3> */}
-                    <ul className="space-y-1 text-gray-400">
-                        <li><a href="#" className="hover:text-blue-400">Contact Us</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Online Chat</a></li>
-                        <li><a href="#" className="hover:text-blue-400">WhatsApp</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Telegram</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Tiket</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Call Center</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Bantuan</a></li>
+        {/* Right Column - Links */}
+        <div className="flex flex-col mx-8 space-y-4 w-2/3">
+            <div className="flex flex-col md:flex-row gap-8 mx-3 justify-center">
+                <div className="basis-1/3">
+                    <ul className="space-y-1 text-gray-400 text-center md:text-left">
+                        <li><Link href="#" className="hover:text-blue-400 font-semibold text-white">About Us</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Blog</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Karir</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Pekerjaan</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Berita</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Galeri</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Afiliasi</Link></li>
                     </ul>
-                    </div>
-
-                    <div className="basis-1/3">
-                    {/* <h3 className="font-semibold">Akun</h3> */}
-                    <ul className="space-y-1 text-gray-400">
-                        <li><a href="#" className="hover:text-blue-400">Account</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Organiser</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Order</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Pembayaren</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Pengembalian</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Copyright</a></li>
-                        <li><a href="#" className="hover:text-blue-400">Bahassa</a></li>
-                    </ul>
-                    </div>
-
-            </div>
-            <div></div>
-            <div className="border-t border-gray-700 mt-5 pt-3 text-gray-500 text-sm text-center space-y-2">
-                <div className="flex justify-center space-x-6">
-                <a href="#" className="hover:text-blue-400">Tentang Kami</a>
-                <a href="#" className="hover:text-blue-400">Kontak</a>
-                <a href="#" className="hover:text-blue-400">Privasi & Policy</a>
-                <a href="#" className="hover:text-blue-400">Sitemap</a>
-                <a href="#" className="hover:text-blue-400">Panduan Penggunaan</a>
                 </div>
-                <p>© 2021–2022, All Rights Reserved</p>
+
+                <div className="basis-1/3">
+                    <ul className="space-y-1 text-gray-400 text-center md:text-left">
+                        <li><Link href="#" className="hover:text-blue-400 font-semibold text-white">Contact Us</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Online Chat</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">WhatsApp</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Telegram</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Tiket</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Call Center</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Bantuan</Link></li>
+                    </ul>
+                </div>
+
+                <div className="basis-1/3">
+                    <ul className="space-y-1 text-gray-400 text-center md:text-left">
+                        <li><Link href="#" className="hover:text-blue-400 font-semibold text-white">Account</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Organiser</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Order</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Pembayaren</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Pengembalian</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Copyright</Link></li>
+                        <li><Link href="#" className="hover:text-blue-400">Bahassa</Link></li>
+                    </ul>
+                </div>
             </div>
 
         </div>
-    </footer>
-    
+    </div>
+        {/* Bottom Section */}
+        <div className="border-gray-700 pt-3 text-gray-500 text-sm text-center space-y-4">
+            <div className="flex mx-3 justify-center space-x-10">
+                <Link href="#" className="hover:text-blue-400">Tentang Kami</Link>
+                <Link href="#" className="hover:text-blue-400">Kontak</Link>
+                <Link href="#" className="hover:text-blue-400">Privasi & Policy</Link>
+                <Link href="#" className="hover:text-blue-400">Sitemap</Link>
+                <Link href="#" className="hover:text-blue-400">Panduan Penggunaan</Link>
+            </div>
+            <p className="text-center md:text-center">© 2021–2022, All Rights Reserved</p>
+        </div>
+  </>
+  
   );
 };
 
