@@ -2,11 +2,28 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FaInstagram } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
 
 
 const Footer = () => {
   return (
     <>
+    <div className="p-5 border-gray-700 pt-3 text-gray-500 text-sm text-center space-y-4">
+		<ul>
+			<p className="text-gray-800 font-bold text-5xl pb-6">
+				Follow <span className="text-blue-600">Us</span>
+			</p>
+			<div className="flex gap-6 pb-5 text-white justify-center">
+				<FaInstagram className="text-2xl cursor-pointer hover:text-yellow-600" />
+				<FaGoogle className="text-2xl cursor-pointer hover:text-red-600" />
+				<FaLinkedin className="text-2xl cursor-pointer hover:text-blue-600" />
+				<FaFacebook className="text-2xl cursor-pointer hover:text-blue-600" />
+			</div>
+		</ul>
+	</div>
     <div className="bg-black w-full flex flex-col md:flex-row justify-center items-center text-white py-10 space-y-5">
         {/* Left Column - Contact Info */}
         <div className="flex flex-col mx-8 space-y-4">
@@ -65,17 +82,17 @@ const Footer = () => {
 
         </div>
     </div>
-        {/* Bottom Section */}
-        <div className="border-gray-700 pt-3 text-gray-500 text-sm text-center space-y-4">
-            <div className="flex mx-3 justify-center space-x-10">
-                <Link href="#" className="hover:text-blue-400">Tentang Kami</Link>
-                <Link href="#" className="hover:text-blue-400">Kontak</Link>
-                <Link href="#" className="hover:text-blue-400">Privasi & Policy</Link>
-                <Link href="#" className="hover:text-blue-400">Sitemap</Link>
-                <Link href="#" className="hover:text-blue-400">Panduan Penggunaan</Link>
-            </div>
-            <p className="text-center md:text-center">© 2021–2022, All Rights Reserved</p>
+    {/* Bottom Section */}
+    <div className="border-gray-700 pt-3 text-gray-500 text-sm text-center space-y-4">
+        <div className="flex mx-3 justify-center space-x-10">
+            <Link href="#" className="hover:text-blue-400">Tentang Kami</Link>
+            <Link href="#" className="hover:text-blue-400">Kontak</Link>
+            <Link href="#" className="hover:text-blue-400">Privasi & Policy</Link>
+            <Link href="#" className="hover:text-blue-400">Sitemap</Link>
+            <Link href="#" className="hover:text-blue-400">Panduan Penggunaan</Link>
         </div>
+        <p className="text-center md:text-center">© 2021–2022, All Rights Reserved</p>
+    </div>
   </>
   
   );
