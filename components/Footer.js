@@ -24,6 +24,9 @@ const Footer = () => {
                 <Facebook className="w-6 h-6 hover:text-blue-400" />
                 </Link>
           </div>
+          <div class="flex justify-center">
+                <div class="w-32 h-2 bg-blue-400 rounded-md"></div>
+          </div>
         </ul>
       </div>
       <div className="bg-black w-full flex flex-col md:flex-row justify-center items-center text-secondary py-10 space-y-5">
