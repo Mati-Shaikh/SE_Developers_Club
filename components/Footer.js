@@ -29,7 +29,7 @@ const Footer = () => {
       <div className="bg-black w-full flex flex-col md:flex-row justify-center items-center text-secondary py-10 space-y-5">
         {/* Left Column - Contact Info */}
         <div className="flex flex-col mx-8 space-y-4">
-          <p className="text-secondary-400 text-center md:text-left">
+          <p className="text-secondary-400 text-left md:text-left">
             Destinize adalah website atau layanan aplikasi yang membantu kamu
             memilih atau merekomendasikan tempat yang dijuluki ‘hidden gems’
             agar lebih dikenal dan ramai
@@ -38,7 +38,7 @@ const Footer = () => {
               Baca Selengkapnya
             </Link>
           </p>
-          <div className="space-y-1 text-center md:text-left">
+          <div className="space-y-1 text-left md:text-left">
             <p>✆ 0851-5616-2840</p>
             <p>✉︎ syaokay@gmail.com</p>
             <p>⚲ Ciamis, Jawa Barat. Indonesia</p>
@@ -48,9 +48,9 @@ const Footer = () => {
 
         {/* Right Column - Links */}
         <div className="flex flex-col mx-8 space-y-4 w-2/3">
-          <div className="flex flex-col md:flex-row gap-8 mx-3 justify-center">
+          <div className="flex flex-col md:flex-row gap-8 justify-center ">
             <div className="basis-1/3">
-              <ul className="space-y-1 text-secondary text-center md:text-left">
+              <ul className="space-y-1 text-secondary text-left md:text-left">
                 <li>
                   <Link
                     href="#"
@@ -93,7 +93,7 @@ const Footer = () => {
             </div>
 
             <div className="basis-1/3">
-              <ul className="space-y-1 text-secondary text-center md:text-left">
+              <ul className="space-y-1 text-secondary text-left md:text-left">
                 <li>
                   <Link
                     href="#"
@@ -136,7 +136,7 @@ const Footer = () => {
             </div>
 
             <div className="basis-1/3">
-              <ul className="space-y-1 text-secondary text-center md:text-left">
+              <ul className="space-y-1 text-secondary text-left md:text-left">
                 <li>
                   <Link
                     href="#"
