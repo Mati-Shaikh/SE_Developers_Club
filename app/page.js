@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import ClubInfo from "../components/ClubInfo";
-import Footer from "@/components/Footer";
 import Gallery from "@/components/home/Gallery";
+import TeamsList from "@/components/TeamsList";
 
 export default function Home() {
   return (
@@ -9,6 +9,7 @@ export default function Home() {
       <Hero />
       <ClubInfo />
       <Gallery />
+      <TeamsList />
     </>
   );
 }
