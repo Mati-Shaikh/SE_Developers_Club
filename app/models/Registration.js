@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import Event from "@/app/models/Event";
+import User from "@/app/models/User";
+import Workshop from "@/app/models/Workshop";
 
 const registrationSchema = new mongoose.Schema(
   {
