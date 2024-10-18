@@ -15,6 +15,11 @@ module.exports = {
         dark: "#000000",
       },
     },
+    variants: {
+      extend: {
+        backfaceVisibility: ['responsive', 'hover', 'group-hover'],
+      },
+    },
   },
   plugins: [],
 };
