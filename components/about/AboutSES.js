@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function AboutSES() {
   return (
-    <div className="relative px-4 sm:px-6 md:px-8 lg:px-10 py-8 md:py-10 lg:-translate-y-32">
+    <div className="relative p-10 md:py-20 md:pb-0 md:px-40 lg:-translate-y-32">
       <div>
         <h1 className="relative z-10 text-6xl lg:text-8xl font-bold text-primary text-center mb-8 md:mb-12 lg:mb-16 lg:translate-y-40">
           About SES
         </h1>
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-8">
           <div className="w-full lg:w-5/12 relative">
             <Image
               src="/About/AboutSES_Img.jpg"
@@ -20,7 +20,7 @@ export default function AboutSES() {
               #
             </h1>
           </div>
-          <div className="w-full lg:w-7/12 text-white p-4 sm:p-6 md:p-8 lg:p-16 text-lg sm:text-xl md:text-2xl font-medium relative">
+          <div className="w-full lg:w-7/12 text-white p-4 sm:p-6 md:p-8 lg:p-8 text-lg sm:text-xl md:text-2xl font-medium relative">
             <p className="mt-4 lg:mt-20">
               Lorem ipsum dolor sit amet, consectetur adipiscing sed do eiusmod
               tempor incididunt ut labore et magna aliqua. Ut enim ad minim

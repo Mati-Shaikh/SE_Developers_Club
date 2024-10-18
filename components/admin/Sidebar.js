@@ -2,26 +2,31 @@
 import { Calendar, Settings, ClipboardList, LogOut } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 const Sidebar = () => {
-  const [events, setEvents] = useState(true);
+  const router = useRouter();
+  const [events, setEvents] = useState(false);
   const [workshops, setWorkshops] = useState(false);
   const [registrations, setRegistration] = useState(false);
   const buttonClassName1 =
-    "flex items-center space-x-3 bg-[#6E78AA] text-white font-semibold py-3 rounded-lg shadow-md";
+    "flex items-center space-x-2 bg-[#6E78AA] text-white font-semibold py-3 rounded-lg shadow-md";
   const buttonClassName2 =
     "flex items-center space-x-2 bg-[#CBD5E1] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#B4C0D1]";
 
   const handleEventClick = (e) => {
+    router.push("/admin/events");
     setEvents(true);
     setWorkshops(false);
     setRegistration(false);
   };
   const handleWorkshopClick = (e) => {
+    router.push("/admin/workshops");
     setEvents(false);
     setWorkshops(true);
     setRegistration(false);
   };
   const handleRegistrationClick = (e) => {
+    router.push("/admin/registrations");
     setEvents(false);
     setWorkshops(false);
     setRegistration(true);
