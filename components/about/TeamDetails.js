@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function TeamDetails() {
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-black text-white min-h-screen mt-10">
       {/* Container for the whole page */}
       <div className="container mx-auto px-4 py-12 md:py-20">
         {/* Team R&D Header */}

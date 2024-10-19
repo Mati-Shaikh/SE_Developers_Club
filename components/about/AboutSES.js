@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutSES() {
   return (
-    <div className="relative p-10 md:py-20 md:pb-0 md:px-40 lg:-translate-y-32">
+    <div className="relative p-10 md:py-20 md:pb-0 md:px-40 lg:-translate-y-32 mt-10">
       <div>
         <h1 className="relative z-10 text-6xl lg:text-8xl font-bold text-primary text-center mb-8 md:mb-12 lg:mb-16 lg:translate-y-40">
           About SES
