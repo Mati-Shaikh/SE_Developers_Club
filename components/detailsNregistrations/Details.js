@@ -12,35 +12,37 @@ const Details = () => {
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
         velit esse cillum dolore eu fugiat nulla pariatur.
       </p>
-      <div className="flex justify-around mt-4">
-        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-80">
+      <div className="flex justify-around flex-wrap gap-4 mt-4">
+        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-40 md:min-w-80">
           <Calendar />
           <p className="text-lg font-bold">Date</p>
           <p className="text-lg">Date</p>
         </div>
-        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-80">
+        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-40 md:min-w-80">
           <MapPin />
           <p className="text-lg font-bold">Location</p>
           <p className="text-lg">Location</p>
         </div>
-        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-80">
+        <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-40 md:min-w-80">
           <Users />
           <p className="text-lg font-bold">Max Capacity</p>
           <p className="text-lg">80</p>
         </div>
       </div>
 
-      <div className="flex justify-center flex-wrap gap-6 items-center p-10">
-        {images.map((image, index) => (
-          <Image
-            width={300}
-            height={300}
-            key={index}
-            src={image}
-            alt="image"
-            className="rounded-lg"
-          />
-        ))}
+      <div className="container mx-auto p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {images.map((img, index) => (
+            <div key={index} className="relative w-full h-64">
+              <Image
+                src={img}
+                alt={`Image ${index + 1}`}
+                fill
+                className="object-cover rounded-lg shadow-md"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
