@@ -10,7 +10,7 @@ const Details = () => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
+        velit esse cillum dolore eu fugiat.
       </p>
       <div className="flex justify-around flex-wrap gap-4 mt-4">
         <div className="bg-neutral-800 py-4 px-10 rounded-lg min-w-40 md:min-w-80">
