@@ -1,12 +1,22 @@
 "use client";
 import { Ban, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import EventCard from "./EventCard";
 
 const EventsTable = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
+  const [selectedWorkshop, setSelectedWorkshop] = useState(null);
 
+  const handleView = (workshop) => {
+    setSelectedWorkshop(workshop);
+  };
+
+  // Handle close modal
+  const handleClose = () => {
+    setSelectedWorkshop(null);
+  };
   useEffect(() => {
     setLoading(true);
     fetch("/api/EventApi/getEvent")
@@ -60,7 +70,10 @@ const EventsTable = () => {
                   <td className="whitespace-nowrap px-4 py-2">{i.capacity}</td>
 
                   <td className="whitespace-nowrap px-4 py-2 space-x-2 w-60">
-                    <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
+                    <button
+                      className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
+                      onClick={() => handleView(i)}
+                    >
                       View
                     </button>
                     <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
@@ -83,6 +96,10 @@ const EventsTable = () => {
           <Ban />
           {error}
         </div>
+      )}
+
+      {selectedWorkshop && (
+        <EventCard eventData={selectedWorkshop} handleClose={handleClose} />
       )}
     </>
   );
