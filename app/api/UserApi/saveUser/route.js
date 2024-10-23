@@ -7,11 +7,12 @@ export async function POST(req) {
 
   await dbConnect();
 
-  const { name, email, password } = body;
+  // Destructure name, email, password, and department from the request body
+  const { name, email, password, department } = body;
 
   try {
-    // Create a new user instance
-    const newUser = new User({ name, email, password });
+    // Create a new user instance with department
+    const newUser = new User({ name, email, password, department });
 
     // Save the user to the database
     await newUser.save();

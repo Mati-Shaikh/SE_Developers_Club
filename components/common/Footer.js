@@ -28,7 +28,7 @@ const Footer = () => {
       {toShow ? (
         <>
           {" "}
-          <div className="p-5 pt-3 text-secondary-500 text-sm text-center space-y-4">
+          <div className="m-4 p-5 md:p-10 pt-3 text-secondary-500 text-sm text-center space-y-4 border-2 border-neutral-400 rounded-3xl">
             <ul>
               <p className="text-secondary font-bold text-5xl pb-6">
                 Follow <span className="text-primary">Us!</span>
@@ -47,8 +47,8 @@ const Footer = () => {
                   <Facebook className="w-6 h-6 hover:text-blue-400" />
                 </Link>
               </div>
-              <div class="flex justify-center">
-                <div class="w-32 h-2 bg-primary"></div>
+              <div className="flex justify-center">
+                <div className="w-32 h-2 bg-primary"></div>
               </div>
             </ul>
           </div>
