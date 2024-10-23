@@ -68,7 +68,9 @@ const WksTable = () => {
                   <td className="whitespace-nowrap px-4 py-2 font-medium">
                     {i.speaker}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">{i.time}</td>
+                  <td className="whitespace-nowrap px-4 py-2">
+                    {new Date(i.time).toLocaleString()}
+                  </td>
                   <td className="whitespace-nowrap px-4 py-2">{i.venue}</td>
                   <td className="whitespace-nowrap px-4 py-2">{i.capacity}</td>
 
