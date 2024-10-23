@@ -1,4 +1,5 @@
 "use client";
+import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,7 +12,7 @@ const ListWorkShops = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/api/EventApi/getEvent")
+    fetch("/api/WorkshopApi/getWorkshop")
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
@@ -49,7 +50,7 @@ const ListWorkShops = () => {
                         SES Workshops
                       </p>
                       <h3 className="text-blue-300 text-2xl font-bold mb-2 animate-bounce">
-                        {item.title}
+                        {item.name}
                       </h3>
                       {/* <p className="bg-gray-400 rounded-lg p-2 text-sm">Done</p> */}
                     </div>
@@ -63,6 +64,12 @@ const ListWorkShops = () => {
                   </div>
 
                   <div className="mt-6 text-gray-300">
+                    <p className="mb-2 text-xl">
+                      <span className="font-medium text-blue-500">
+                        Speaker:
+                      </span>{" "}
+                      {item.speaker}
+                    </p>
                     <p className="mb-2">
                       {new Date(item.time).toLocaleString()}
                     </p>
@@ -83,6 +90,9 @@ const ListWorkShops = () => {
             </div>
           ))}
       </div>
+      {loading && (
+        <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
+      )}
     </div>
   );
 };
