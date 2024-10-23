@@ -23,7 +23,7 @@ const EventsTable = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
-          console.log(data);
+          // console.log(data);
           setItems(data.data);
           setLoading(false);
           setError(false);
