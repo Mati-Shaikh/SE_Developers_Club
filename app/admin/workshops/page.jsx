@@ -1,7 +1,12 @@
+import WksTable from "@/components/admin/WorkShops/WksTable";
+
 export default function AdminWorkshops() {
   return (
-    <div className="flex flex-row w-full">
-      <div className="w-full h-20 text-white">Admin Workshops here</div>
+    <div className="w-full p-5 space-y-4 h-screen">
+      <div className="w-full text-2xl text-white font-bold">
+        All SES Workshops
+      </div>
+      <WksTable />
     </div>
   );
 }
