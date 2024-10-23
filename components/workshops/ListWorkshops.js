@@ -4,7 +4,7 @@ const ListWorkShops = () => {
   return (
     <div className="p-10 md:p-20 mt-10 text-white w-full">
       <h3 className="text-lg md:text-3xl mb-4 md:mb-10 font-bold">
-        All WorkShops Organized by SES
+        All WorkShops Organized by SES.
       </h3>
       <div className="space-y-4 w-full">
         {list.map((item, key) => (
