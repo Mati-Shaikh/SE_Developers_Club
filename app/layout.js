@@ -1,6 +1,7 @@
 import "./globals.css";
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
+import SessionWrapper from "@/components/auth/SessionWrapper";
 import { Poppins } from "next/font/google";
 
 const font = Poppins({
@@ -15,12 +16,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${font.className} bg-dark`}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body className={`${font.className} bg-dark`}>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
