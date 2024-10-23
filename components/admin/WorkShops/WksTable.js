@@ -61,7 +61,7 @@ const WksTable = () => {
           <tbody className="divide-y divide-gray-200 relative">
             {items &&
               items.map((i, k) => (
-                <tr className="divide-x">
+                <tr key={k} className="divide-x">
                   <td className="whitespace-nowrap px-4 py-2 font-medium">
                     {i.name}
                   </td>
