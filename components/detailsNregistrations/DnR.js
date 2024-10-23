@@ -1,11 +1,48 @@
 "use client";
-import { CalendarCheck, Info } from "lucide-react";
-import { useState } from "react";
+import { CalendarCheck, Info, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import RegisterForm from "./RegsiterForm";
 import Details from "./Details";
+import { usePathname } from "next/navigation";
 
 const DnR = () => {
+  const path = usePathname();
   const [selectedTab, setSelectedTab] = useState("details");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    let id = path.split("/")[2];
+    let url = "/api";
+    if (path.split("/")[1] === "events") {
+      url += "/EventApi/getEvent";
+    } else {
+      url += "/WorkshopApi/getWorkshop";
+    }
+
+    setLoading(true);
+    fetch(`${url}?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          // console.log(data);
+          setItem(data.data);
+          setLoading(false);
+          setError(false);
+        } else {
+          console.log(data.error);
+          setLoading(false);
+          setError(data.error);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError("Something went wrong!!");
+      });
+  }, []);
+
   return (
     <div className="p-10 md:p-28">
       {/* Tab Header */}
@@ -38,18 +75,25 @@ const DnR = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="mt-4">
-        {selectedTab === "details" && (
-          <div className="p-4 bg-neutral-950 rounded-md shadow-md">
-            <Details />
-          </div>
-        )}
-        {selectedTab === "register" && (
-          <div className="p-4 bg-neutral-950 rounded-md shadow-md">
-            <RegisterForm usecase={"Workshop"} />
-          </div>
-        )}
-      </div>
+      {item && (
+        <div className="mt-4">
+          {selectedTab === "details" && (
+            <div className="p-4 bg-neutral-950 rounded-md shadow-md">
+              <Details item={item} />
+            </div>
+          )}
+          {selectedTab === "register" && (
+            <div className="p-4 bg-neutral-950 rounded-md shadow-md">
+              <RegisterForm
+                usecase={path.split("/")[1] === "events" ? "Event" : "Workshop"}
+              />
+            </div>
+          )}
+        </div>
+      )}
+      {loading && (
+        <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
+      )}
     </div>
   );
 };

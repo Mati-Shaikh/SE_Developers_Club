@@ -1,10 +1,11 @@
 "use client";
 import { Calendar, Settings, ClipboardList, LogOut } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 const Sidebar = () => {
   const router = useRouter();
+  const path = usePathname();
   const [events, setEvents] = useState(false);
   const [workshops, setWorkshops] = useState(false);
   const [registrations, setRegistration] = useState(false);
@@ -15,22 +16,35 @@ const Sidebar = () => {
 
   const handleEventClick = (e) => {
     router.push("/admin/events");
-    setEvents(true);
-    setWorkshops(false);
-    setRegistration(false);
   };
   const handleWorkshopClick = (e) => {
     router.push("/admin/workshops");
-    setEvents(false);
-    setWorkshops(true);
-    setRegistration(false);
   };
   const handleRegistrationClick = (e) => {
     router.push("/admin/registrations");
-    setEvents(false);
-    setWorkshops(false);
-    setRegistration(true);
   };
+
+  useEffect(() => {
+    switch (path) {
+      case "/admin/events":
+        setEvents(true);
+        setWorkshops(false);
+        setRegistration(false);
+        break;
+      case "/admin/workshops":
+        setEvents(false);
+        setWorkshops(true);
+        setRegistration(false);
+        break;
+      case "/admin/registrations":
+        setEvents(false);
+        setWorkshops(false);
+        setRegistration(true);
+        break;
+      default:
+        break;
+    }
+  }, [path]);
 
   return (
     <div className="h-screen flex flex-col justify-between bg-gradient-to-b from-blue-50 to-purple-100 py-6 px-8     w-64">

@@ -47,8 +47,8 @@ const Footer = () => {
                   <Facebook className="w-6 h-6 hover:text-blue-400" />
                 </Link>
               </div>
-              <div class="flex justify-center">
-                <div class="w-32 h-2 bg-primary"></div>
+              <div className="flex justify-center">
+                <div className="w-32 h-2 bg-primary"></div>
               </div>
             </ul>
           </div>
