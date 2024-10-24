@@ -2,12 +2,15 @@
 import { Ban, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import WksCard from "./WksCard";
+import EditWorkshopModal from "./EditWorkshopModal";
 
 const WksTable = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
+  const [workshopToEdit, setWorkshopToEdit] = useState(null); // Store the event to be edited
 
   useEffect(() => {
     setLoading(true);
@@ -39,6 +42,55 @@ const WksTable = () => {
   const handleClose = () => {
     setSelectedWorkshop(null);
   };
+
+  // Handle open edit modal
+  const handleOpenEditModal = (event) => {
+    setWorkshopToEdit(event); // Set the event to be edited
+    setIsEditModalOpen(true); // Open the modal
+  };
+
+
+
+  const handleSaveEdit = (updatedWorkshop) => {
+
+    const workshopData = {
+      id: updatedWorkshop._id,
+      name: updatedWorkshop.name,
+      speaker: updatedWorkshop.speaker,
+      time: updatedWorkshop.time,
+      venue: updatedWorkshop.venue,
+      capacity: updatedWorkshop.capacity,
+      description: updatedWorkshop.description,
+    };
+
+    fetch("/api/WorkshopApi/updateWorkshop", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workshopData), // Send the updated event data
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "Workshop updated successfully") {
+          // Update the local state to reflect the changes
+          // console.log(data);
+          setItems((prevItems) =>
+            prevItems.map((item) =>
+              item._id === updatedWorkshop._id ? { ...item, ...updatedWorkshop } : item
+            )
+          );
+        } else {
+          console.error(data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to update event:", error);
+      });
+
+    setIsEditModalOpen(false); // Close the modal after saving
+  };
+ 
   return (
     <>
       <div className="w- full bg-transparent overflow-x-auto rounded-lg shadow-sm shadow-gray-200 border border-gray-200 text-white">
@@ -81,7 +133,10 @@ const WksTable = () => {
                     >
                       View
                     </button>
-                    <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
+                    <button 
+                      className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
+                      onClick={() => handleOpenEditModal(i)}
+                    >
                       Edit
                     </button>
                     <button className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700">
@@ -105,6 +160,13 @@ const WksTable = () => {
 
       {selectedWorkshop && (
         <WksCard wksData={selectedWorkshop} handleClose={handleClose} />
+      )}
+      {isEditModalOpen && (
+        <EditWorkshopModal
+          workshopData={workshopToEdit}
+          handleClose={() => setIsEditModalOpen(false)}
+          handleSave={handleSaveEdit}
+        />
       )}
     </>
   );

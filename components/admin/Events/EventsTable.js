@@ -2,12 +2,15 @@
 import { Ban, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
+import EditEventModal from "./EditEventModal";
 
 const EventsTable = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
+  const [eventToEdit, setEventToEdit] = useState(null); // Store the event to be edited
 
   const handleView = (workshop) => {
     setSelectedWorkshop(workshop);
@@ -17,6 +20,55 @@ const EventsTable = () => {
   const handleClose = () => {
     setSelectedWorkshop(null);
   };
+
+  // Handle open edit modal
+  const handleOpenEditModal = (event) => {
+    setEventToEdit(event); // Set the event to be edited
+    setIsEditModalOpen(true); // Open the modal
+  };
+
+
+  const handleSaveEdit = (updatedEvent) => {
+
+    const eventData = {
+      id: updatedEvent._id,
+      name: updatedEvent.name,
+      time: updatedEvent.time,
+      venue: updatedEvent.venue,
+      capacity: updatedEvent.capacity,
+      description: updatedEvent.description,
+    };
+  
+    fetch("/api/EventApi/updateEvent", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData), // Send the updated event data
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "Event updated successfully") {
+          // Update the local state to reflect the changes
+          // console.log(data);
+          setItems((prevItems) =>
+            prevItems.map((item) =>
+              item._id === updatedEvent._id ? { ...item, ...updatedEvent } : item
+            )
+          );
+        } else {
+          console.error(data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to update event:", error);
+      });
+    
+    setIsEditModalOpen(false); // Close the modal after saving
+  };
+  
+
+
   useEffect(() => {
     setLoading(true);
     fetch("/api/EventApi/getEvent")
@@ -46,15 +98,21 @@ const EventsTable = () => {
         <table className="min-w-full divide-y-2 divide-gray-200  text-sm">
           <thead className="ltr:text-left rtl:text-right">
             <tr className="bg-slate-800 divide-x">
-              <th className="whitespace-nowrap px-4 py-2 font-bold">Name</th>
+              <th className="whitespace-nowrap px-4 py-2 font-bold">
+                Name
+              </th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">
                 DateNTime
               </th>
-              <th className="whitespace-nowrap px-4 py-2 font-bold">Venue</th>
+              <th className="whitespace-nowrap px-4 py-2 font-bold">
+                Venue
+              </th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">
                 Capacity
               </th>
-              <th className="whitespace-nowrap px-4 py-2 font-bold">Actions</th>
+              <th className="whitespace-nowrap px-4 py-2 font-bold">
+                Actions
+              </th>
             </tr>
           </thead>
 
@@ -78,7 +136,10 @@ const EventsTable = () => {
                     >
                       View
                     </button>
-                    <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
+                    <button 
+                      className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
+                      onClick={() => handleOpenEditModal(i)}
+                    >
                       Edit
                     </button>
                     <button className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700">
@@ -102,6 +163,14 @@ const EventsTable = () => {
 
       {selectedWorkshop && (
         <EventCard eventData={selectedWorkshop} handleClose={handleClose} />
+      )}
+
+      {isEditModalOpen && (
+        <EditEventModal
+          eventData={eventToEdit}
+          handleClose={() => setIsEditModalOpen(false)}
+          handleSave={handleSaveEdit}
+        />
       )}
     </>
   );
