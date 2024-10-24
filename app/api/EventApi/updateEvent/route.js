@@ -5,14 +5,14 @@ import { NextResponse } from "next/server";
 export async function PUT(req) {
   await dbConnect();
 
-  const { id } = await req.json(); // Extract the ID from the request body
-
-  if (!id) {
-    return NextResponse.json({ message: "Event ID is required" }, { status: 400 });
-  }
-
   try {
-    const updatedEvent = await Event.findByIdAndUpdate(id, req.body, { new: true });
+    const { id, ...updateData } = await req.json(); // Parse the request body
+
+    if (!id) {
+      return NextResponse.json({ message: "Event ID is required" }, { status: 400 });
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedEvent) {
       return NextResponse.json({ message: "Event not found" }, { status: 404 });

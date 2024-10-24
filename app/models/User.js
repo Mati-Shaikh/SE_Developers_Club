@@ -4,8 +4,10 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
     department: { type: String },
+    role: { type: String },
+    rollNumber: { type: String },
   },
   { timestamps: true }
 );
