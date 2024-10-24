@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import RegisterForm from "./RegsiterForm";
 import Details from "./Details";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 const DnR = () => {
   const path = usePathname();
   const [selectedTab, setSelectedTab] = useState("details");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [item, setItem] = useState(null);
 
   useEffect(() => {
@@ -29,17 +29,16 @@ const DnR = () => {
           // console.log(data);
           setItem(data.data);
           setLoading(false);
-          setError(false);
         } else {
           console.log(data.error);
           setLoading(false);
-          setError(data.error);
+          toast.error(data.error);
         }
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setError("Something went wrong!!");
+        toast.error("Something went wrong!!");
       });
   }, []);
 
@@ -85,7 +84,7 @@ const DnR = () => {
           {selectedTab === "register" && (
             <div className="p-4 bg-neutral-950 rounded-md shadow-md">
               <RegisterForm
-              id={item._id}
+                id={item._id}
                 usecase={path.split("/")[1] === "events" ? "Event" : "Workshop"}
               />
             </div>
