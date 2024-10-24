@@ -85,6 +85,7 @@ const DnR = () => {
           {selectedTab === "register" && (
             <div className="p-4 bg-neutral-950 rounded-md shadow-md">
               <RegisterForm
+              id={item._id}
                 usecase={path.split("/")[1] === "events" ? "Event" : "Workshop"}
               />
             </div>

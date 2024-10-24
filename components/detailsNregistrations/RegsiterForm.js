@@ -1,13 +1,16 @@
 "use client";
+import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
-function RegisterForm({ usecase }) {
+function RegisterForm({ id, usecase }) {
   const [formData, setFormData] = useState({
     name: "",
     rollNo: "",
     email: "",
-    department: "CS", // Default value
+    department: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,15 +19,52 @@ function RegisterForm({ usecase }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const response = await fetch("/api/register", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(formData),
-    // });
-    // const result = await response.json();
-    // console.log(result);
+    // checks
+    if (formData.department === "") {
+      toast.error("Please select a department");
+      return;
+    }
+
+    // preparing data
+    setLoading(true);
+    let dataToSend = {
+      name: formData.name,
+      rollno: formData.rollNo,
+      email: formData.email,
+      department: formData.department,
+      usecase: usecase,
+    };
+    if (usecase === "Event") {
+      dataToSend.eventID = id;
+    } else {
+      dataToSend.workshopID = id;
+    }
+
+    // request
+    await fetch("/api/RegistrationApi/addRegistration", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data);
+        if (data.message === "Registration created successfully") {
+          toast.success(data.message);
+        } else {
+          // some field missing or error in them
+          toast.error(data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong!!");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -112,10 +152,15 @@ function RegisterForm({ usecase }) {
           </select>
         </div>
         <button
+          disabled={loading}
           type="submit"
-          className="w-full py-2 bg-primary text-white rounded-lg hover:bg-blue-600"
+          className="w-full flex justify-center items-center py-2 bg-primary text-white rounded-lg hover:bg-blue-600"
         >
-          Submit
+          {loading ? (
+            <Loader2 className="h-6 w-6 text-white animate-spin" />
+          ) : (
+            "Register"
+          )}
         </button>
       </form>
     </div>
