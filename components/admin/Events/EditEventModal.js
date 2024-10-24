@@ -12,6 +12,7 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
     handleSave(formData); // Pass the updated form data to parent for saving
   };
 
+
   return (
     <div className="fixed inset-0 bg-dark  bg-opacity-50 flex items-center justify-center">
       <div className="bg-dark p-8 rounded-lg shadow-lg w-1/2">
