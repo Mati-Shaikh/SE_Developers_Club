@@ -78,7 +78,7 @@ const Gallery = () => {
                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Ut enim ad minim veniam
                 <br />
-                <div className="flex flex-row py-4">🔥❤️👨‍💻</div>
+                <span className="flex flex-row py-4">🔥❤️👨‍💻</span>
               </p>
             </div>
           </div>

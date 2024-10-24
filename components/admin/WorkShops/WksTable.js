@@ -1,15 +1,15 @@
 "use client";
-import { Ban, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import WksCard from "./WksCard";
 import EditWorkshopModal from "./EditWorkshopModal";
+import { toast } from "sonner";
 
 const WksTable = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [workshopToEdit, setWorkshopToEdit] = useState(null); // Store the event to be edited
 
   useEffect(() => {
@@ -21,17 +21,16 @@ const WksTable = () => {
           // console.log(data);
           setItems(data.data);
           setLoading(false);
-          setError(false);
         } else {
           console.log(data.error);
           setLoading(false);
-          setError(data.error);
+          toast.error(data.error);
         }
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setError("Something went wrong!!");
+        toast.error("Something went wrong!!");
       });
   }, []);
   const handleView = (workshop) => {
@@ -49,10 +48,7 @@ const WksTable = () => {
     setIsEditModalOpen(true); // Open the modal
   };
 
-
-
   const handleSaveEdit = (updatedWorkshop) => {
-
     const workshopData = {
       id: updatedWorkshop._id,
       name: updatedWorkshop.name,
@@ -77,7 +73,9 @@ const WksTable = () => {
           // console.log(data);
           setItems((prevItems) =>
             prevItems.map((item) =>
-              item._id === updatedWorkshop._id ? { ...item, ...updatedWorkshop } : item
+              item._id === updatedWorkshop._id
+                ? { ...item, ...updatedWorkshop }
+                : item
             )
           );
         } else {
@@ -90,6 +88,7 @@ const WksTable = () => {
 
     setIsEditModalOpen(false); // Close the modal after saving
   };
+
 
   const handleDelete = (WorkshopId) => {
 
@@ -118,6 +117,7 @@ const WksTable = () => {
   };
 
  
+
   return (
     <>
       <div className="w- full bg-transparent overflow-x-auto rounded-lg shadow-sm shadow-gray-200 border border-gray-200 text-white">
@@ -160,7 +160,7 @@ const WksTable = () => {
                     >
                       View
                     </button>
-                    <button 
+                    <button
                       className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
                       onClick={() => handleOpenEditModal(i)}
                     >
@@ -180,12 +180,6 @@ const WksTable = () => {
       </div>
       {loading && (
         <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
-      )}
-      {error && (
-        <div className="bg-red-500 w-full rounded p-2 flex items-center gap-4 text-white">
-          <Ban />
-          {error}
-        </div>
       )}
 
       {selectedWorkshop && (
