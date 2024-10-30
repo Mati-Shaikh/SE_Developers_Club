@@ -71,6 +71,11 @@ const EventsTable = () => {
 
   // Handle deleting an event
   const handleDelete = (eventId) => {
+    const confirmation = confirm("Are you sure you want to delete this event?");
+    if (!confirmation) {
+      return;
+    }
+
     fetch("/api/EventApi/deleteEvent", {
       method: "DELETE",
       headers: {

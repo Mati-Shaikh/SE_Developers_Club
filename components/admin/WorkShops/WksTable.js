@@ -92,6 +92,13 @@ const WksTable = () => {
   };
 
   const handleDelete = (WorkshopId) => {
+    const confirmation = confirm(
+      "Are you sure you want to delete this workshop?"
+    );
+    if (!confirmation) {
+      return;
+    }
+
     fetch("/api/WorkshopApi/deleteWorkshop", {
       method: "DELETE",
       headers: {
