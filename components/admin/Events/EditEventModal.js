@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const EditEventModal = ({ eventData, handleClose, handleSave }) => {
   const [formData, setFormData] = useState(eventData);
@@ -12,10 +12,9 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
     handleSave(formData); // Pass the updated form data to parent for saving
   };
 
-
   return (
-    <div className="fixed inset-0 bg-dark  bg-opacity-50 flex items-center justify-center">
-      <div className="bg-dark p-8 rounded-lg shadow-lg w-1/2">
+    <div className="fixed inset-0 bg-black text-white bg-opacity-60 flex items-center justify-center">
+      <div className="bg-neutral-950 p-8 border shadow-white rounded-lg shadow w-1/2">
         <h2 className="text-xl font-bold mb-4">Edit Event</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -29,7 +28,9 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Date and Time</label>
+            <label className="block text-sm font-medium mb-2">
+              Date and Time
+            </label>
             <input
               type="datetime-local"
               name="time"

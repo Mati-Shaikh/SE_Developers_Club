@@ -13,8 +13,8 @@ const EditWorkshopModal = ({ workshopData, handleClose, handleSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-dark  bg-opacity-50 flex items-center justify-center">
-      <div className="bg-dark p-8 rounded-lg shadow-lg w-1/2">
+    <div className="fixed inset-0 bg-black text-white bg-opacity-60 flex items-center justify-center">
+      <div className="bg-neutral-950 p-8 border shadow-white rounded-lg shadow w-1/2">
         <h2 className="text-xl font-bold mb-4">Edit Workshop</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
