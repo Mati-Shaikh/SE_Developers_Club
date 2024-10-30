@@ -78,20 +78,20 @@ const WksTable = () => {
                 : item
             )
           );
+          toast.success(data.message);
         } else {
-          console.error(data.error);
+          toast.error(data.error);
         }
       })
       .catch((error) => {
+        toast.error("Something went wrong!!");
         console.error("Failed to update event:", error);
       });
 
     setIsEditModalOpen(false); // Close the modal after saving
   };
 
-
   const handleDelete = (WorkshopId) => {
-
     fetch("/api/WorkshopApi/deleteWorkshop", {
       method: "DELETE",
       headers: {
@@ -101,22 +101,22 @@ const WksTable = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-
         console.log(data);
         if (data.message === "Workshop deleted successfully") {
           // Update the local state to remove the deleted event
-          setItems((prevItems) => prevItems.filter((item) => item._id !== WorkshopId));
-          console.log(data.message);
+          setItems((prevItems) =>
+            prevItems.filter((item) => item._id !== WorkshopId)
+          );
+          toast.success(data.message);
         } else {
-          console.error(data.error);
+          toast.error(data.error);
         }
       })
       .catch((error) => {
+        toast.error("Something went wrong!!");
         console.error("Failed to delete event:", error);
       });
   };
-
- 
 
   return (
     <>
@@ -166,8 +166,8 @@ const WksTable = () => {
                     >
                       Edit
                     </button>
-                    <button 
-                      className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700" 
+                    <button
+                      className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700"
                       onClick={() => handleDelete(i._id)}
                     >
                       Delete

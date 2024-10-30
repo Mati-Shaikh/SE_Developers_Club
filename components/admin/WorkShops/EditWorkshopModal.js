@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const EditWorkshopModal = ({ workshopData, handleClose, handleSave }) => {
   const [formData, setFormData] = useState(workshopData);
@@ -31,6 +31,7 @@ const EditWorkshopModal = ({ workshopData, handleClose, handleSave }) => {
             <label className="block text-sm font-medium mb-2">Speaker</label>
             <input
               type="text"
+              name="speaker"
               speaker="speaker"
               value={formData.speaker}
               onChange={handleChange}
@@ -38,7 +39,9 @@ const EditWorkshopModal = ({ workshopData, handleClose, handleSave }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Date and Time</label>
+            <label className="block text-sm font-medium mb-2">
+              Date and Time
+            </label>
             <input
               type="datetime-local"
               name="time"

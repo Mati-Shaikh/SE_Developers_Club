@@ -56,20 +56,21 @@ const EventsTable = () => {
                 : item
             )
           );
+          toast.success(data.message);
         } else {
-          console.error(data.error);
+          toast.error(data.error);
         }
       })
       .catch((error) => {
+        toast.error("Something went wrong!!");
         console.error("Failed to update event:", error);
       });
 
     setIsEditModalOpen(false); // Close the modal after saving
   };
-  
+
   // Handle deleting an event
   const handleDelete = (eventId) => {
-
     fetch("/api/EventApi/deleteEvent", {
       method: "DELETE",
       headers: {
@@ -81,17 +82,19 @@ const EventsTable = () => {
       .then((data) => {
         if (data.message === "Event deleted successfully") {
           // Update the local state to remove the deleted event
-          setItems((prevItems) => prevItems.filter((item) => item._id !== eventId));
-          console.log(data.message);
+          setItems((prevItems) =>
+            prevItems.filter((item) => item._id !== eventId)
+          );
+          toast.success(data.message);
         } else {
-          console.error(data.error);
+          toast.error(data.error);
         }
       })
       .catch((error) => {
+        toast.error("Something went wrong!!");
         console.error("Failed to delete event:", error);
       });
   };
-
 
   useEffect(() => {
     setLoading(true);
@@ -159,7 +162,7 @@ const EventsTable = () => {
                     >
                       Edit
                     </button>
-                    <button 
+                    <button
                       className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700"
                       onClick={() => handleDelete(i._id)}
                     >
