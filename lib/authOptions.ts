@@ -72,73 +72,73 @@ export const authOptions: NextAuthOptions = {
                 return null; // Return null if any errors occur
             }
         }),
-        CredentialsProvider({
-            name: "signUp",
-            credentials: {
-                name: { label: "Name", type: "text", placeholder: "John Doe", required: "true" },
-                email: { label: "Email", type: "email", placeholder: "example@domain.com", required: "true" },
-                rollno: { label: "Roll Number", type: "text", placeholder: "123456", required: "true" },
-                password: { label: "Password", type: "password", required: "true" },
-                confirmPassword: { label: "Confirm Password", type: "password", required: "true" },
-                department: { label: "Department", type: "text", placeholder: "AI, CS, CYS, DS or SE", required: "true" , pattern: "^(AI|CS|CYS|DS|SE)$" }
-            },
-            async authorize(credentials, req) {
+        // CredentialsProvider({
+        //     name: "signUp",
+        //     credentials: {
+        //         name: { label: "Name", type: "text", placeholder: "John Doe", required: "true" },
+        //         email: { label: "Email", type: "email", placeholder: "example@domain.com", required: "true" },
+        //         rollno: { label: "Roll Number", type: "text", placeholder: "123456", required: "true" },
+        //         password: { label: "Password", type: "password", required: "true" },
+        //         confirmPassword: { label: "Confirm Password", type: "password", required: "true" },
+        //         department: { label: "Department", type: "text", placeholder: "AI, CS, CYS, DS or SE", required: "true" , pattern: "^(AI|CS|CYS|DS|SE)$" }
+        //     },
+        //     async authorize(credentials, req) {
 
-                const { name, email, rollno, password, confirmPassword, department } = credentials;
+        //         const { name, email, rollno, password, confirmPassword, department } = credentials;
 
-                if (password !== confirmPassword) {
-                    throw new Error("Passwords do not match");
-                }
+        //         if (password !== confirmPassword) {
+        //             throw new Error("Passwords do not match");
+        //         }
 
-                const userCredentials = {
-                    name,
-                    email,
-                    rollno,
-                    password,
-                    department,
-                };
+        //         const userCredentials = {
+        //             name,
+        //             email,
+        //             rollno,
+        //             password,
+        //             department,
+        //         };
 
-                console.log("User Credentials: ", userCredentials);
+        //         console.log("User Credentials: ", userCredentials);
 
-                const baseUrl = `${process.env.NEXTAUTH_URL}/api/UserApi/saveUser`;
+        //         const baseUrl = `${process.env.NEXTAUTH_URL}/api/UserApi/saveUser`;
 
-                try {
-                    // Make the fetch call to save the user
-                    const response = await fetch(baseUrl, {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(userCredentials) // Send the credentials object as JSON
-                    });
+        //         try {
+        //             // Make the fetch call to save the user
+        //             const response = await fetch(baseUrl, {
+        //                 method: "POST",
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                 },
+        //                 body: JSON.stringify(userCredentials) // Send the credentials object as JSON
+        //             });
                     
-                    // Handle potential server errors
-                    if (response.status === 500) {
-                        const result = await response.json();
-                        throw new Error(result.error || "Internal Server Error");
-                    }      
+        //             // Handle potential server errors
+        //             if (response.status === 500) {
+        //                 const result = await response.json();
+        //                 throw new Error(result.error || "Internal Server Error");
+        //             }      
                 
-                    // Process the result
-                    const result = await response.json();
-                    console.log(`Result: `, result.user);
+        //             // Process the result
+        //             const result = await response.json();
+        //             console.log(`Result: `, result.user);
 
-                    const user = {
-                        id: result.id,
-                        name: result.name,
-                        email: result.email,
-                        department: result.department
-                    };
+        //             const user = {
+        //                 id: result.id,
+        //                 name: result.name,
+        //                 email: result.email,
+        //                 department: result.department
+        //             };
 
-                    return user;
-                }
-                catch (error) {
-                    console.log(`Error: ${error}`);
-                }
+        //             return user;
+        //         }
+        //         catch (error) {
+        //             console.log(`Error: ${error}`);
+        //         }
 
-                // Return true or handle success accordingly
-                return null;
-            }
-        }),
+        //         // Return true or handle success accordingly
+        //         return null;
+        //     }
+        // }),
     ],
     callbacks: {
         async jwt({ token, user }) {

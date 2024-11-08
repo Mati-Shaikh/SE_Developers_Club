@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Login from "@/components/auth/Login"
+
 const Footer = () => {
   const path = usePathname();
   const [toShow, setToShow] = useState(false);
@@ -242,6 +244,9 @@ const Footer = () => {
       ) : (
         ""
       )}
+      <div className="w-full flex justify-center">
+        <Login></Login>
+      </div>
     </>
   );
 };
