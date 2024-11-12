@@ -1,5 +1,6 @@
 "use client";
-import { CalendarPlus, Loader2 } from "lucide-react";
+import CloudinaryUpload from "@/app/lib/CloudinaryUpload";
+import { CalendarPlus, Loader2, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -10,36 +11,60 @@ const NewEvent = () => {
     venue: "",
     capacity: 100,
     description: "",
-    images: ["/example.jpeg", "/example.jpeg"],
+    // images: ["/example.jpeg", "/example.jpeg"],
   });
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [uploadedUrls, setUploadedUrls] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (event) => {
+    if (event.target.files) {
+      const newImages = Array.from(event.target.files);
+      setSelectedImages((prevImages) => [...prevImages, ...newImages]);
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !formData.name ||
       !formData.time ||
       !formData.venue ||
       !formData.capacity ||
-      !formData.description
+      !formData.description ||
+      !selectedImages.length > 0
     ) {
-      toast.error("Please fill in all fields");
+      toast.error("Please fill in all fields and attach images");
       return;
     }
 
     setLoading(true);
+
+    // uploading images first
+    let imagesURLS = await CloudinaryUpload(selectedImages);
+
+    if (!imagesURLS) {
+      toast.error("Something went wrong while uploading images");
+      return;
+    }
+
     const eventData = {
       name: formData.name,
       time: formData.time,
       venue: formData.venue,
       capacity: formData.capacity,
       description: formData.description,
-      images: formData.images,
+      images: imagesURLS,
     };
 
     fetch("/api/EventApi/addEvent", {
@@ -54,6 +79,7 @@ const NewEvent = () => {
         if (data.message === "Event created successfully") {
           toast.success(data.message);
         } else {
+          console.log(data.error);
           toast.error(data.error);
         }
       })
@@ -131,6 +157,42 @@ const NewEvent = () => {
                   onChange={handleChange}
                   className="w-full p-2 border border-gray-300 rounded bg-dark hover:bg-gray-600"
                 />
+              </div>
+
+              <div className="mb-2 flex flex-row items-center gap-2">
+                <label htmlFor="uploadimg">
+                  <span className="px-4 py-2 border rounded-md cursor-pointer">
+                    <UploadCloud className="text-white inline-block mr-2" />
+                    Attach Images
+                  </span>
+                  <input
+                    id="uploadimg"
+                    type="file"
+                    multiple
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                </label>
+
+                <div className="flex flex-row items-center space-x-2 mt-2">
+                  {selectedImages.map((image, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Selected Image ${index}`}
+                        className="h-12 w-12 object-cover rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
+                        className="absolute -top-1 -right-1 bg-gray-800 text-white rounded-full p-1 hover:bg-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="flex justify-end space-x-4">
