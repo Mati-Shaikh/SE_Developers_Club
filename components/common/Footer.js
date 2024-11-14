@@ -212,6 +212,9 @@ const Footer = () => {
                         Bahassa
                       </Link>
                     </li>
+                    <li>
+                        <Login></Login>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -244,9 +247,6 @@ const Footer = () => {
       ) : (
         ""
       )}
-      <div className="w-full flex justify-center">
-        <Login></Login>
-      </div>
     </>
   );
 };

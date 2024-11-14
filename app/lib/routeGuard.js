@@ -51,4 +51,6 @@ export async function routeGuard(requiredRole, failureRedirect) {
     if (!user || user.role !== requiredRole) {
         redirect(failureRedirect);
     }
+
+    return session;
 }

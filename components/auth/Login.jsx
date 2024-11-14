@@ -46,18 +46,18 @@ export default function Home() {
     <>
       {!session ? (
         <button
-            onClick={() => signIn("credentials")}
-            className="flex bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
+            onClick={() => signIn("credentials", { callbackUrl: "/admin"})}
+            // className="flex bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
         >
-            <FaUserPlus className="mr-2 text-2xl" />
+            {/* <FaUserPlus className="mr-2 text-2xl" /> */}
             Sign In 
         </button>
       ) : (
         <button
             onClick={() => signOut()}
-            className="flex bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
+            // className="flex bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
         >
-            <FaSignOutAlt className="mr-2 text-2xl" />
+            {/* <FaSignOutAlt className="mr-2 text-2xl" /> */}
             Sign Out
         </button>
       )}

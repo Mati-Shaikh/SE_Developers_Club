@@ -1,6 +1,12 @@
 import AdminSidebarWrapper from "@/components/admin/AdminSidebarWrapper";
 
-export default function AdminLayout({ children }) {
+import { redirect } from "next/navigation";
+import { routeGuard } from "../lib/routeGuard";
+
+export default async function AdminLayout({ children }) {
+  
+  const { user } = await routeGuard("admin", "/");
+
   return (
     <div className="flex h-screen">
       <AdminSidebarWrapper />

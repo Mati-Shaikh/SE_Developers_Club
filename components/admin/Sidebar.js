@@ -3,7 +3,16 @@ import { Calendar, Settings, ClipboardList, LogOut } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+
 const Sidebar = () => {
+
+  const { data: session, status } = useSession();
+
+  console.log(session);
+
   const router = useRouter();
   const path = usePathname();
   const [events, setEvents] = useState(false);
@@ -91,11 +100,15 @@ const Sidebar = () => {
 
       <div className="space-y-4 items-center">
         <div className="text-[#6E78AA] items-center px-10">
-          <span className=" text-lg font-medium mb-4">User Name</span>
+          <span className=" text-lg font-medium mb-4">
+            {
+              session ? (`Welcome ${session.user.name}`) : ("Loading...")
+            }
+          </span>
         </div>
         <button className={buttonClassName1 + " px-12"}>
           <LogOut className="w-6 h-6" />
-          <span>Logout</span>
+          <span onClick={() => signOut()}>Logout</span>
         </button>
       </div>
     </div>
