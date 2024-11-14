@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import User from "@/app/models/User";
 import Credentials from "next-auth/providers/credentials";
 import CredentialsProvider from "next-auth/providers/credentials"
+import { Session } from "next-auth";
 
 const createQueryParams = (params) => {
     const searchParams = new URLSearchParams(params);
@@ -62,9 +63,9 @@ export const authOptions: NextAuthOptions = {
                         email: user.email,
                     };
 
-                    console.log("Returning User: ", user);
+                    console.log("Returning User: ", authenticatedUser);
 
-                    return user; // Return user object for successful login
+                    return authenticatedUser; // Return user object for successful login
                 } catch (error) {
                     console.log(`Error: ${error}`);
                 }
@@ -144,66 +145,22 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             // If user is logged in, add their info to the token
             if (user) {
+                token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
             }
+
+            console.log("Token: ", token);
             return token; // Return the modified token
         },
-        async session({ session, token }) {
+        async session({ session, token } : { session: Session, token: any }) {
             // Include user data from the token into the session
+            session.user.id = token.id;
             session.user.name = token.name;
             session.user.email = token.email;
+
+            console.log("Session: ", session)
             return session; // Return the modified session
         },
-    }
-    // providers: [
-    //     GoogleProvider({
-    //         clientId: process.env.GOOGLE_CLIENT_ID,      
-    //         clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    //     }),
-    // ],
-    // session: {
-    //     strategy: "jwt",
-    // },
-    // callbacks: {
-    //     async signIn({ user, account, profile }) {
-    //         // console.log("User: ", user);
-    //         const { name, email } = user;
-
-    //         const credentials = {
-    //             name,
-    //             email,
-    //             password: "google-auth",
-    //         };
-
-    //         // console.log("Credentials: ", credentials);
-
-    //         const baseUrl = `${process.env.BASE_URL}/api/UserApi/saveUser`;
-    //         // console.log(`Base url: ${baseUrl}`);
-
-    //         try {
-    //             const response = await fetch(baseUrl, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify(credentials)
-    //             });
-                
-    //             if (response.status === 500) {
-    //                 const result = await response.json();
-    //                 throw new Error(result.error || "Internal Server Error");
-    //             }      
-
-    //             const result = await response.json();
-    //             console.log(`Result: `, result);
-    //         }
-    //         catch (error) {
-    //             console.log(`Error: ${error}`);
-    //         }
-
-    //         return true;
-    //     }
-    // }
-    
+    } 
 }
