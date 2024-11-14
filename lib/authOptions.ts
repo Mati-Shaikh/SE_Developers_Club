@@ -5,11 +5,7 @@ import User from "@/app/models/User";
 import Credentials from "next-auth/providers/credentials";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { Session } from "next-auth";
-
-const createQueryParams = (params) => {
-    const searchParams = new URLSearchParams(params);
-    return searchParams.toString();
-}
+import createQueryParams from "./createQueryParams";
 
 const departments = ["AI", "CS", "CYS", "DS", "SE"];
 
@@ -150,8 +146,8 @@ export const authOptions: NextAuthOptions = {
                 token.email = user.email;
             }
 
-            console.log("Token: ", token);
-            return token; // Return the modified token
+            // console.log("Token: ", token);
+            return token;
         },
         async session({ session, token } : { session: Session, token: any }) {
             // Include user data from the token into the session
@@ -159,8 +155,8 @@ export const authOptions: NextAuthOptions = {
             session.user.name = token.name;
             session.user.email = token.email;
 
-            console.log("Session: ", session)
-            return session; // Return the modified session
+            // console.log("Session: ", session)
+            return session;
         },
     } 
 }
