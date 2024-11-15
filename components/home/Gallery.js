@@ -10,7 +10,7 @@ const Gallery = () => {
         <div className="flex flex-col md:flex-row gap-4 w-full md:items-start md:justify-center">
           <div className="flex flex-row md:hidden xl:block rounded-lg gap-4 w-full min-w-[150px] md:w-[400px]">
             <Image
-              src="/event.jpg"
+              src="/IMG_1515.jpg"
               height={200}
               width={200}
               className="rounded-lg w-full h-40 md:h-60 object-cover object-center"
@@ -27,7 +27,7 @@ const Gallery = () => {
             </div>
           </div>
           <video
-            src="/ses.mp4"
+            src="/se.mp4"
             autoPlay
             muted
             playsInline
@@ -37,21 +37,21 @@ const Gallery = () => {
 
         <div className="grid grid-cols-3 gap-4 w-full max-w-[1200px]">
           <Image
-            src="/pixels.jpg"
+            src="/_MG_1036.JPG"
             height={200}
             width={200}
             className="w-full rounded-lg object-cover object-center"
             alt="ses workshops and event"
           />
           <Image
-            src="/pixels.jpg"
+            src="/se.jpeg"
             height={200}
             width={200}
             className="w-full rounded-lg object-cover object-center"
             alt="ses workshops and event"
           />
           <Image
-            src="/pixels.jpg"
+            src="/audii.jpeg"
             height={200}
             width={200}
             className="w-full rounded-lg object-cover object-center"
@@ -62,7 +62,7 @@ const Gallery = () => {
         <div className="relative flex flex-col md:flex-row gap-4 w-full">
           <div className="relative w-full">
             <Image
-              src="/pixels.jpg"
+              src="/IMG_1515.jpg"
               height={200}
               width={200}
               className="w-full rounded-lg object-cover object-center h-60 opacity-80"

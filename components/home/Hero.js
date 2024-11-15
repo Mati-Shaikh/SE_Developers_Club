@@ -39,7 +39,7 @@ export default function Hero() {
           <Image
             width={300}
             height={300}
-            src="/pixels.jpg"
+            src="/hero.jpg"
             alt="Events Highlights"
             className="w-full h-full rounded-lg shadow-lg object-cover"
           />
