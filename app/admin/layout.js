@@ -1,18 +1,16 @@
 import AdminSidebarWrapper from "@/components/admin/AdminSidebarWrapper";
-
-import { redirect } from "next/navigation";
 import { routeGuard } from "../lib/routeGuard";
 
 export default async function AdminLayout({ children }) {
   
-  // const { user } = await routeGuard("admin", "/");
-
+  const { user } = await routeGuard("admin", "/login");
+  
   return (
-    <div className="flex h-screen">
-      <AdminSidebarWrapper />
-      <div className="main-content flex-1 overflow-y-auto">
-        <main>{children}</main>
+      <div className="flex h-screen">
+        <AdminSidebarWrapper />
+        <div className="main-content flex-1 overflow-y-auto">
+          <main>{children}</main>
+        </div>
       </div>
-    </div>
   );
 }

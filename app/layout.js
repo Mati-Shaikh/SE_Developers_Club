@@ -5,6 +5,7 @@ import SessionWrapper from "@/components/auth/SessionWrapper";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 
+
 const font = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"], // Add more weights here
@@ -26,6 +27,6 @@ export default function RootLayout({ children }) {
           <Footer />
         </body>
       </html>
-    </SessionWrapper>
+      </SessionWrapper>
   );
 }

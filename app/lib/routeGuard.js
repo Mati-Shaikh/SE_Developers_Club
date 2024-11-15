@@ -25,7 +25,6 @@ const getUser = async (email) => {
         }
 
         const result = await response.json();
-        console.log(`Login Result: `, result);
 
         const user = result.users;
 
@@ -45,8 +44,6 @@ export async function routeGuard(requiredRole, failureRedirect) {
     }
 
     const user = await getUser(session.user.email);
-
-    console.log(user);
 
     if (!user || user.role !== requiredRole) {
         redirect(failureRedirect);
