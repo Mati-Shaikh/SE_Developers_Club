@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 const Sidebar = () => {
   const { data: session, status } = useSession();
@@ -56,12 +57,15 @@ const Sidebar = () => {
     <div className="h-screen flex flex-col justify-between bg-gradient-to-b from-blue-50 to-purple-100 py-6 px-8     w-64">
       <div>
         <div className="flex items-center space-x-2 mb-8">
-          <Image
-            src="/logo.png"
-            width={204}
-            height={61}
-            style={{ marginTop: "-70px" }}
-          />
+          <Link href={"/"}>
+            {" "}
+            <Image
+              src="/logo.png"
+              width={204}
+              height={61}
+              style={{ marginTop: "-70px" }}
+            />
+          </Link>
         </div>
 
         <nav className="space-y-4">
