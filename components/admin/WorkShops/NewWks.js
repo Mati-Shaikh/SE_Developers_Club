@@ -1,5 +1,6 @@
 "use client";
-import { Loader2, PackagePlus } from "lucide-react";
+import CloudinaryUpload from "@/app/lib/CloudinaryUpload";
+import { Loader2, PackagePlus, UploadCloud,X} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -10,29 +11,50 @@ const NewWorkshop = () => {
     venue: "",
     capacity: 100,
     description: "",
-    images: ["/example.jpeg", "/example.jpeg"],
+    // images: ["/example.jpeg", "/example.jpeg"],
     speaker: "",
     helpingMaterials: "https://drive.google.com/somefolder",
   });
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (event) => {
+    if (event.target.files) {
+      const newImages = Array.from(event.target.files);
+      setSelectedImages((prevImages) => [...prevImages, ...newImages]);
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      formData.name === "" ||
-      formData.description === "" ||
-      formData.speaker === "" ||
-      formData.helpingMaterials === ""
+      !formData.name ||
+      !formData.description ||
+      !formData.speaker ||
+      !formData.helpingMaterials||
+      !selectedImages.length > 0
     ) {
       toast.error("Please fill all the fields");
       return;
     }
     setLoading(true);
+
+    let imagesURLS = await CloudinaryUpload(selectedImages);
+
+    if (!imagesURLS) {
+      toast.error("Something went wrong while uploading images");
+      return;
+    }
 
     const eventData = {
       name: formData.name,
@@ -40,7 +62,7 @@ const NewWorkshop = () => {
       venue: formData.venue,
       capacity: formData.capacity,
       description: formData.description,
-      images: formData.images,
+      images: imagesURLS,
       speaker: formData.speaker,
       helpingMaterials: formData.helpingMaterials,
     };
@@ -161,6 +183,42 @@ const NewWorkshop = () => {
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded bg-dark hover:bg-gray-600"
                   />
+                </div>
+              </div>
+
+              <div className="mb-2 flex flex-row items-center gap-2">
+                <label htmlFor="uploadimg">
+                  <span className="px-4 py-2 border rounded-md cursor-pointer">
+                    <UploadCloud className="text-white inline-block mr-2" />
+                    Attach Images
+                  </span>
+                  <input
+                    id="uploadimg"
+                    type="file"
+                    multiple
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                </label>
+
+                <div className="flex flex-row items-center space-x-2 mt-2">
+                  {selectedImages.map((image, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Selected Image ${index}`}
+                        className="h-12 w-12 object-cover rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
+                        className="absolute -top-1 -right-1 bg-gray-800 text-white rounded-full p-1 hover:bg-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
 

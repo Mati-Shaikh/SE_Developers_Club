@@ -5,7 +5,7 @@ import { routeGuard } from "../lib/routeGuard";
 
 export default async function AdminLayout({ children }) {
   
-  const { user } = await routeGuard("admin", "/");
+  // const { user } = await routeGuard("admin", "/");
 
   return (
     <div className="flex h-screen">
