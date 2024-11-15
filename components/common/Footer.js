@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Login from "@/components/auth/Login"
 
 const Footer = () => {
   const path = usePathname();
@@ -211,9 +210,6 @@ const Footer = () => {
                       <Link href="#" className="hover:text-blue-400">
                         Bahassa
                       </Link>
-                    </li>
-                    <li>
-                        <Login></Login>
                     </li>
                   </ul>
                 </div>

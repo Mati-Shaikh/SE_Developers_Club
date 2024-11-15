@@ -8,10 +8,7 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
-
   const { data: session, status } = useSession();
-
-  console.log(session);
 
   const router = useRouter();
   const path = usePathname();
@@ -101,9 +98,7 @@ const Sidebar = () => {
       <div className="space-y-4 items-center">
         <div className="text-[#6E78AA] items-center px-10">
           <span className=" text-lg font-medium mb-4">
-            {
-              session ? (`Welcome ${session.user.name}`) : ("Loading...")
-            }
+            {session ? `${session.user.name}` : ""}
           </span>
         </div>
         <button className={buttonClassName1 + " px-12"}>
