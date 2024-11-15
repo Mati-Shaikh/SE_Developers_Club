@@ -35,6 +35,7 @@ const EventsTable = () => {
       venue: updatedEvent.venue,
       capacity: updatedEvent.capacity,
       description: updatedEvent.description,
+      // images: imagesURLS,
     };
 
     fetch("/api/EventApi/updateEvent", {
