@@ -11,6 +11,7 @@ const WksTable = () => {
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [workshopToEdit, setWorkshopToEdit] = useState(null); // Store the event to be edited
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -32,7 +33,7 @@ const WksTable = () => {
         setLoading(false);
         toast.error("Something went wrong!!");
       });
-  }, []);
+  }, [refresh]);
   const handleView = (workshop) => {
     setSelectedWorkshop(workshop);
   };
@@ -46,49 +47,6 @@ const WksTable = () => {
   const handleOpenEditModal = (event) => {
     setWorkshopToEdit(event); // Set the event to be edited
     setIsEditModalOpen(true); // Open the modal
-  };
-
-  const handleSaveEdit = (updatedWorkshop) => {
-    const workshopData = {
-      id: updatedWorkshop._id,
-      name: updatedWorkshop.name,
-      speaker: updatedWorkshop.speaker,
-      time: updatedWorkshop.time,
-      venue: updatedWorkshop.venue,
-      capacity: updatedWorkshop.capacity,
-      description: updatedWorkshop.description,
-    };
-
-    fetch("/api/WorkshopApi/updateWorkshop", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(workshopData), // Send the updated event data
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "Workshop updated successfully") {
-          // Update the local state to reflect the changes
-          // console.log(data);
-          setItems((prevItems) =>
-            prevItems.map((item) =>
-              item._id === updatedWorkshop._id
-                ? { ...item, ...updatedWorkshop }
-                : item
-            )
-          );
-          toast.success(data.message);
-        } else {
-          toast.error(data.error);
-        }
-      })
-      .catch((error) => {
-        toast.error("Something went wrong!!");
-        console.error("Failed to update event:", error);
-      });
-
-    setIsEditModalOpen(false); // Close the modal after saving
   };
 
   const handleDelete = (WorkshopId) => {
@@ -194,9 +152,9 @@ const WksTable = () => {
       )}
       {isEditModalOpen && (
         <EditWorkshopModal
-          workshopData={workshopToEdit}
+          setRefresh={setRefresh}
           handleClose={() => setIsEditModalOpen(false)}
-          handleSave={handleSaveEdit}
+          workshopData={workshopToEdit}
         />
       )}
     </>

@@ -11,6 +11,7 @@ const EventsTable = () => {
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [eventToEdit, setEventToEdit] = useState(null); // Store the event to be edited
+  const [refresh, setRefresh] = useState(false);
 
   const handleView = (workshop) => {
     setSelectedWorkshop(workshop);
@@ -25,49 +26,6 @@ const EventsTable = () => {
   const handleOpenEditModal = (event) => {
     setEventToEdit(event); // Set the event to be edited
     setIsEditModalOpen(true); // Open the modal
-  };
-
-  const handleSaveEdit = (updatedEvent) => {
-    const eventData = {
-      id: updatedEvent._id,
-      name: updatedEvent.name,
-      time: updatedEvent.time,
-      venue: updatedEvent.venue,
-      capacity: updatedEvent.capacity,
-      description: updatedEvent.description,
-      // images: imagesURLS,
-    };
-
-    fetch("/api/EventApi/updateEvent", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(eventData), // Send the updated event data
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message === "Event updated successfully") {
-          // Update the local state to reflect the changes
-          // console.log(data);
-          setItems((prevItems) =>
-            prevItems.map((item) =>
-              item._id === updatedEvent._id
-                ? { ...item, ...updatedEvent }
-                : item
-            )
-          );
-          toast.success(data.message);
-        } else {
-          toast.error(data.error);
-        }
-      })
-      .catch((error) => {
-        toast.error("Something went wrong!!");
-        console.error("Failed to update event:", error);
-      });
-
-    setIsEditModalOpen(false); // Close the modal after saving
   };
 
   // Handle deleting an event
@@ -122,7 +80,7 @@ const EventsTable = () => {
         setLoading(false);
         toast.error("Something went wrong!!");
       });
-  }, []);
+  }, [refresh]);
 
   return (
     <>
@@ -190,9 +148,9 @@ const EventsTable = () => {
 
       {isEditModalOpen && (
         <EditEventModal
+          setRefresh={setRefresh}
           eventData={eventToEdit}
           handleClose={() => setIsEditModalOpen(false)}
-          handleSave={handleSaveEdit}
         />
       )}
     </>

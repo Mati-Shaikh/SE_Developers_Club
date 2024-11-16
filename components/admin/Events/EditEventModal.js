@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { UploadCloud, X } from "lucide-react";
-const EditEventModal = ({ eventData, handleClose, handleSave }) => {
+import { Loader2, UploadCloud, X } from "lucide-react";
+import CloudinaryUpload from "@/app/lib/CloudinaryUpload";
+import { toast } from "sonner";
+const EditEventModal = ({ eventData, handleClose, setRefresh }) => {
   const [formData, setFormData] = useState(eventData);
   const [selectedImages, setSelectedImages] = useState([]);
   const [existingImages, setExistingImages] = useState(eventData.images || []);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,14 +27,57 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
     setExistingImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+  // moved editing save here
+  const handleSaveEdit = (updatedEvent) => {
+    const eventData = {
+      id: updatedEvent._id,
+      name: updatedEvent.name,
+      time: updatedEvent.time,
+      venue: updatedEvent.venue,
+      capacity: updatedEvent.capacity,
+      description: updatedEvent.description,
+      images: updatedEvent.images,
+    };
+    fetch("/api/EventApi/updateEvent", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eventData), // Send the updated event data
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "Event updated successfully") {
+          // Update the local state to reflect the changes
+          // console.log(data);
+          toast.success(data.message);
+          setRefresh((prev) => !prev); // refreshing data after saving new data
+          handleClose(); // Close the modal after saving
+        } else {
+          toast.error(data.error);
+        }
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!");
+        console.error("Failed to update event:", error);
+      })
+      .finally(() => setLoading(false));
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+    let newImages = [];
+    if (selectedImages.length > 0) {
+      // uploading images first
+      newImages = await CloudinaryUpload(selectedImages);
+    }
     const updatedEventData = {
       ...formData,
-      images: [...existingImages, ...selectedImages],
+      images: [...existingImages, ...newImages],
     };
-    handleSave(updatedEventData); // Pass the updated form data to parent for saving
+    handleSaveEdit(updatedEventData); // Pass the updated form data to parent for saving
   };
 
   return (
@@ -82,12 +128,18 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
             />
           </div>
 
-           {/* Attach Images Section */}
-          <div className="mb-4">
-            <label htmlFor="uploadimg" className="block text-sm font-medium mb-2">
+          {/* Attach Images Section */}
+          <div className="mb-4 space-y-3">
+            <label
+              htmlFor="uploadimg"
+              className="block text-sm font-medium mb-3"
+            >
               Attach Images
             </label>
-            <label htmlFor="uploadimg" className="px-4 py-2 border rounded-md cursor-pointer">
+            <label
+              htmlFor="uploadimg"
+              className="px-4 py-2 border rounded-md cursor-pointer"
+            >
               <UploadCloud className="text-white inline-block mr-2" />
               Attach Images
               <input
@@ -148,9 +200,14 @@ const EditEventModal = ({ eventData, handleClose, handleSave }) => {
             </button>
             <button
               type="submit"
+              disabled={loading}
               className="px-4 py-2 bg-primary text-white rounded hover:bg-secondary"
             >
-              Save
+              {loading ? (
+                <Loader2 className="h-6 w-6 text-white animate-spin" />
+              ) : (
+                "Save"
+              )}
             </button>
           </div>
         </form>
