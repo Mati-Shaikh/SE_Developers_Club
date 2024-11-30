@@ -24,7 +24,7 @@ export default function TeamDetails() {
   const [teamName, setTeamName] = useState("");
   useEffect(() => {
     let path = pathname.split("/")[2];
-    console.log(path);
+
     switch (path) {
       case "graphics":
         setTeam(graphics);
