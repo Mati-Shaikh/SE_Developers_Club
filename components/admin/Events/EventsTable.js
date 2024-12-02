@@ -1,13 +1,17 @@
 "use client";
-import { Ban, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
+import EditEventModal from "./EditEventModal";
+import { toast } from "sonner";
 
 const EventsTable = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [eventToEdit, setEventToEdit] = useState(null); // Store the event to be edited
+  const [refresh, setRefresh] = useState(false);
 
   const handleView = (workshop) => {
     setSelectedWorkshop(workshop);
@@ -17,6 +21,45 @@ const EventsTable = () => {
   const handleClose = () => {
     setSelectedWorkshop(null);
   };
+
+  // Handle open edit modal
+  const handleOpenEditModal = (event) => {
+    setEventToEdit(event); // Set the event to be edited
+    setIsEditModalOpen(true); // Open the modal
+  };
+
+  // Handle deleting an event
+  const handleDelete = (eventId) => {
+    const confirmation = confirm("Are you sure you want to delete this event?");
+    if (!confirmation) {
+      return;
+    }
+
+    fetch("/api/EventApi/deleteEvent", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: eventId }), // Send the event ID to be deleted
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.message === "Event deleted successfully") {
+          // Update the local state to remove the deleted event
+          setItems((prevItems) =>
+            prevItems.filter((item) => item._id !== eventId)
+          );
+          toast.success(data.message);
+        } else {
+          toast.error(data.error);
+        }
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!");
+        console.error("Failed to delete event:", error);
+      });
+  };
+
   useEffect(() => {
     setLoading(true);
     fetch("/api/EventApi/getEvent")
@@ -26,19 +69,18 @@ const EventsTable = () => {
           // console.log(data);
           setItems(data.data);
           setLoading(false);
-          setError(false);
         } else {
           console.log(data.error);
           setLoading(false);
-          setError(data.error);
+          toast.error(data.error);
         }
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setError("Something went wrong!!");
+        toast.error("Something went wrong!!");
       });
-  }, []);
+  }, [refresh]);
 
   return (
     <>
@@ -78,10 +120,16 @@ const EventsTable = () => {
                     >
                       View
                     </button>
-                    <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
+                    <button
+                      className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
+                      onClick={() => handleOpenEditModal(i)}
+                    >
                       Edit
                     </button>
-                    <button className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700">
+                    <button
+                      className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700"
+                      onClick={() => handleDelete(i._id)}
+                    >
                       Delete
                     </button>
                   </td>
@@ -93,15 +141,17 @@ const EventsTable = () => {
       {loading && (
         <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
       )}
-      {error && (
-        <div className="bg-red-500 w-full rounded p-2 flex items-center gap-4 text-white">
-          <Ban />
-          {error}
-        </div>
-      )}
 
       {selectedWorkshop && (
         <EventCard eventData={selectedWorkshop} handleClose={handleClose} />
+      )}
+
+      {isEditModalOpen && (
+        <EditEventModal
+          setRefresh={setRefresh}
+          eventData={eventToEdit}
+          handleClose={() => setIsEditModalOpen(false)}
+        />
       )}
     </>
   );

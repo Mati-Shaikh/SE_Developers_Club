@@ -14,10 +14,13 @@ module.exports = {
         secondary: "#C0C7DC",
         dark: "#000000",
       },
+      dropShadow: {
+        custom: "10px 5px 5px #6272A1",
+      },
     },
     variants: {
       extend: {
-        backfaceVisibility: ['responsive', 'hover', 'group-hover'],
+        backfaceVisibility: ["responsive", "hover", "group-hover"],
       },
     },
   },

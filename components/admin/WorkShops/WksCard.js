@@ -1,5 +1,8 @@
 import React from "react";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 const WksCard = ({ wksData, handleClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -15,11 +18,23 @@ const WksCard = ({ wksData, handleClose }) => {
         {/* Event Images */}
         <div className="mb-4">
           {wksData.images && wksData.images.length > 0 ? (
-            <img
-              src={wksData.images[0]}
-              alt={wksData.name}
-              className="w-full h-48 object-cover rounded-md"
-            />
+            <Swiper
+            modules={[Pagination]}
+              pagination={{ clickable: true }}
+              spaceBetween={10}
+              slidesPerView={1}
+              className="rounded-md w-4/5"
+            >
+              {wksData.images.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={image}
+                    alt={`${wksData.name} - ${index + 1}`}
+                    className="w-full h-48 object-cover rounded-md"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           ) : (
             <div className="w-full h-48 bg-gray-700 rounded-md flex items-center justify-center">
               <span className="text-gray-400">No Image Available</span>

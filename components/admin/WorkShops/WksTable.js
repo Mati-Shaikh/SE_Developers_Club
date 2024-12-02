@@ -1,13 +1,17 @@
 "use client";
-import { Ban, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import WksCard from "./WksCard";
+import EditWorkshopModal from "./EditWorkshopModal";
+import { toast } from "sonner";
 
 const WksTable = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [items, setItems] = useState(null);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [workshopToEdit, setWorkshopToEdit] = useState(null); // Store the event to be edited
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -18,19 +22,18 @@ const WksTable = () => {
           // console.log(data);
           setItems(data.data);
           setLoading(false);
-          setError(false);
         } else {
           console.log(data.error);
           setLoading(false);
-          setError(data.error);
+          toast.error(data.error);
         }
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setError("Something went wrong!!");
+        toast.error("Something went wrong!!");
       });
-  }, []);
+  }, [refresh]);
   const handleView = (workshop) => {
     setSelectedWorkshop(workshop);
   };
@@ -39,6 +42,47 @@ const WksTable = () => {
   const handleClose = () => {
     setSelectedWorkshop(null);
   };
+
+  // Handle open edit modal
+  const handleOpenEditModal = (event) => {
+    setWorkshopToEdit(event); // Set the event to be edited
+    setIsEditModalOpen(true); // Open the modal
+  };
+
+  const handleDelete = (WorkshopId) => {
+    const confirmation = confirm(
+      "Are you sure you want to delete this workshop?"
+    );
+    if (!confirmation) {
+      return;
+    }
+
+    fetch("/api/WorkshopApi/deleteWorkshop", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: WorkshopId }), // Send the event ID to be deleted
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.message === "Workshop deleted successfully") {
+          // Update the local state to remove the deleted event
+          setItems((prevItems) =>
+            prevItems.filter((item) => item._id !== WorkshopId)
+          );
+          toast.success(data.message);
+        } else {
+          toast.error(data.error);
+        }
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!!");
+        console.error("Failed to delete event:", error);
+      });
+  };
+
   return (
     <>
       <div className="w- full bg-transparent overflow-x-auto rounded-lg shadow-sm shadow-gray-200 border border-gray-200 text-white">
@@ -81,10 +125,16 @@ const WksTable = () => {
                     >
                       View
                     </button>
-                    <button className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700">
+                    <button
+                      className="inline-block rounded bg-primary px-4 py-2 text-xs font-medium  hover:bg-slate-700"
+                      onClick={() => handleOpenEditModal(i)}
+                    >
                       Edit
                     </button>
-                    <button className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700">
+                    <button
+                      className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium  hover:bg-red-700"
+                      onClick={() => handleDelete(i._id)}
+                    >
                       Delete
                     </button>
                   </td>
@@ -96,15 +146,16 @@ const WksTable = () => {
       {loading && (
         <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
       )}
-      {error && (
-        <div className="bg-red-500 w-full rounded p-2 flex items-center gap-4 text-white">
-          <Ban />
-          {error}
-        </div>
-      )}
 
       {selectedWorkshop && (
         <WksCard wksData={selectedWorkshop} handleClose={handleClose} />
+      )}
+      {isEditModalOpen && (
+        <EditWorkshopModal
+          setRefresh={setRefresh}
+          handleClose={() => setIsEditModalOpen(false)}
+          workshopData={workshopToEdit}
+        />
       )}
     </>
   );

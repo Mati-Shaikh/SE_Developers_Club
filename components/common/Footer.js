@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+
 const Footer = () => {
   const path = usePathname();
   const [toShow, setToShow] = useState(false);
@@ -35,16 +36,16 @@ const Footer = () => {
               </p>
               <div className="flex gap-6 pb-5 text-secondary-500 justify-center">
                 <Link href="#">
-                  <Instagram className="w-6 h-6 hover:text-blue-400" />
+                  <Instagram className="w-6 h-6 text-secondary hover:text-blue-400" />
                 </Link>
                 <Link href="#">
-                  <Twitter className="w-6 h-6 hover:text-blue-400" />
+                  <Twitter className="w-6 h-6 text-secondary hover:text-blue-400" />
                 </Link>
                 <Link href="#">
-                  <Linkedin className="w-6 h-6 hover:text-blue-400" />
+                  <Linkedin className="w-6 h-6 text-secondary hover:text-blue-400" />
                 </Link>
                 <Link href="#">
-                  <Facebook className="w-6 h-6 hover:text-blue-400" />
+                  <Facebook className="w-6 h-6 text-secondary hover:text-blue-400" />
                 </Link>
               </div>
               <div className="flex justify-center">

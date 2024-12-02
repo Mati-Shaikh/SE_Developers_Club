@@ -10,58 +10,84 @@ const TeamsList = () => {
         <div className="w-full max-w-4xl p-8 grid grid-cols-1 md:grid-cols-2 gap-2">
           {/* First row */}
           <Link
-            href="/about/pr-marketing"
+            href="/about/decor"
             className="bg-red-200 hover:bg-red-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
           >
-            PR & Marketing
+            Decor
           </Link>
           <Link
-            href="/about/research-workshops"
+            href="/about/graphics"
             className="bg-indigo-200 hover:bg-indigo-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
           >
-            Research & Workshops
+            Graphics
           </Link>
 
           {/* Second row */}
           <Link
-            href="/about/operations"
+            href="/about/social-media-and-content"
             className="bg-yellow-200 hover:bg-yellow-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
           >
-            Operations
+            Social Media & Content
           </Link>
           <Link
-            href="/about/research-workshops"
+            href="/about/event-coverage-and-video-editing"
             className="bg-teal-200 hover:bg-teal-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
           >
-            Research & Workshops
+            Event Coverage & Video Editing
           </Link>
 
           {/* Third row */}
           <Link
-            href="/about/pr-marketing"
+            href="/about/events-planning"
             className="bg-indigo-200 hover:bg-indigo-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
           >
-            PR & Marketing
+            Events Planning
           </Link>
           <Link
-            href="/about/research-workshops"
+            href="/about/finance"
             className="bg-yellow-200 hover:bg-yellow-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
           >
-            Research & Workshops
+            Finanace
           </Link>
 
           {/* Fourth row */}
           <Link
-            href="/about/pr-marketing"
+            href="/about/operations"
             className="bg-red-200 hover:bg-red-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
           >
-            PR & Marketing
+            Operations
           </Link>
           <Link
-            href="/about/research-workshops"
+            href="/about/pr"
             className="bg-teal-200 hover:bg-teal-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
           >
-            Research & Workshops
+            PR
+          </Link>
+          {/* Fifth row */}
+          <Link
+            href="/about/marketing"
+            className="bg-red-200 hover:bg-red-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
+          >
+            Marketing
+          </Link>
+          <Link
+            href="/about/information-and-coordination"
+            className="bg-teal-200 hover:bg-teal-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
+          >
+            Information & Coordination
+          </Link>
+          {/* Sixth row */}
+          <Link
+            href="/about/workshops"
+            className="bg-red-200 hover:bg-red-300 flex items-center justify-center h-16 text-dark font-bold text-lg rounded md:text-2xl transform hover:translate-y-0.5"
+          >
+            Workshops
+          </Link>
+          <Link
+            href="/about/research-and-development"
+            className="bg-teal-200 hover:bg-teal-300 flex items-center justify-center h-16 text-dark font-bold text-lg md:text-2xl rounded transform hover:translate-y-0.5"
+          >
+            Research & Development
           </Link>
         </div>
       </div>

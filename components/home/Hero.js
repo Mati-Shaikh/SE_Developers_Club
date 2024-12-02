@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -6,21 +7,30 @@ export default function Hero() {
       {/* Main Section */}
       <div className="flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto p-8 space-y-10 lg:space-y-0 lg:space-x-20 lg:h-[600px]">
         {/* Text Section */}
-        <div className="lg:w-1/2 space-y-6 flex flex-col justify-center">
-          <h1 className="text-4xl font-bold text-[#6272A1] leading-snug">
+        <div className="lg:w-1/2">
+          <h1 className="text-4xl font-bold text-primary mb-4">
             Explore & Grow with <br /> Our Software <br /> Workshops and Events!
           </h1>
           <p className="text-lg text-[#C0C7DC] max-w-xl">
-            Stay ahead with hands-on workshops and expert-led events designed to
-            boost your skills in the latest software technologies.
+            We&apos;re a community of passionate tech learners and innovators.
+            We foster creativity and collaboration through workshops,
+            hackathons, and knowledge sharing. Our goal is to equip students
+            with cutting-edge software skills to tackle real-world challenges
+            and shape the future of technology.
           </p>
-          <div className="space-x-4">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg">
-              REGISTER NOW
-            </button>
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg">
+          <div className="space-x-4 mt-10">
+            <Link
+              href={"/workskops"}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
+            >
+              VISIT WORKSHOPS
+            </Link>
+            <Link
+              href={"/events"}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg"
+            >
               VISIT EVENTS
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -29,7 +39,7 @@ export default function Hero() {
           <Image
             width={300}
             height={300}
-            src="/pixels.jpg"
+            src="/hero.jpg"
             alt="Events Highlights"
             className="w-full h-full rounded-lg shadow-lg object-cover"
           />
@@ -56,12 +66,10 @@ export default function Hero() {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-[#6272A1]">
-            Populer di dekatmu
-          </h3>
+          <h3 className="text-lg font-semibold text-[#6272A1]">Innovation</h3>
           <p>
-            Tempat pariwisata yang populer dan pasti dikenal semua orang di
-            dekatmu.
+            We spark wild ideas, pushing boundaries to craft groundbreaking
+            software solutions.
           </p>
         </div>
 
@@ -84,9 +92,12 @@ export default function Hero() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-[#6272A1]">
-            Favorit di dekatmu
+            Collaboration
           </h3>
-          <p>Tempat favorit dan disukai semua orang di sekitar daerah kamu.</p>
+          <p>
+            Team up. Mix minds. Create magic together—because solo coding is so
+            last year.
+          </p>
         </div>
 
         {/* Card 3 */}
@@ -108,11 +119,11 @@ export default function Hero() {
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-[#6272A1]">
-            Ramai di didekatmu
+            Skill Development
           </h3>
           <p>
-            Spot yang paling ramai dikunjungi para warga sekaligus para
-            wisatawan.
+            Master your craft, one epic workshop at a time. Get ready to code
+            like a pro!
           </p>
         </div>
       </div>
