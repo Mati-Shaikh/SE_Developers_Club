@@ -4,13 +4,14 @@ import { CalendarPlus, Loader2, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const NewEvent = () => {
+const NewEvent = ({ setRefresh }) => {
   const [formData, setFormData] = useState({
     name: "",
     time: "2024-11-15T10:00:00.000+00:00",
     venue: "",
     capacity: 100,
     description: "",
+    teamSize: 1,
     // images: ["/example.jpeg", "/example.jpeg"],
   });
   const [showModal, setShowModal] = useState(false);
@@ -64,6 +65,7 @@ const NewEvent = () => {
       venue: formData.venue,
       capacity: formData.capacity,
       description: formData.description,
+      teamSize: formData.teamSize,
       images: imagesURLS,
     };
 
@@ -78,6 +80,16 @@ const NewEvent = () => {
       .then((data) => {
         if (data.message === "Event created successfully") {
           toast.success(data.message);
+          setRefresh((prev) => !prev);
+          setFormData({
+            name: "",
+            time: "2024-11-15T10:00:00.000+00:00",
+            venue: "",
+            capacity: 100,
+            description: "",
+            teamSize: 1,
+          });
+          setShowModal(false);
         } else {
           console.log(data.error);
           toast.error(data.error);
@@ -133,6 +145,18 @@ const NewEvent = () => {
                     value={new Date(formData.time).toISOString().slice(0, -1)} // Format date for input
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded bg-dark hover:bg-gray-600"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2">
+                    Team Size
+                  </label>
+                  <input
+                    type="number"
+                    name="teamSize"
+                    value={formData.teamSize}
+                    onChange={handleChange}
+                    className="w-24 p-2 border border-gray-300 rounded bg-dark hover:bg-gray-600"
                   />
                 </div>
                 <div className="mb-4">
@@ -198,6 +222,7 @@ const NewEvent = () => {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
                 >
@@ -222,7 +247,7 @@ const NewEvent = () => {
       {!showModal && (
         <button
           onClick={() => setShowModal(true)}
-          className="absolute bottom-10 right-10 bg-white hover:bg-primary hover:text-white text-black p-2 rounded-md cursor-pointer"
+          className="fixed bottom-10 right-10 bg-white hover:bg-primary hover:text-white text-black p-2 rounded-md cursor-pointer"
         >
           <CalendarPlus size={30} />
         </button>

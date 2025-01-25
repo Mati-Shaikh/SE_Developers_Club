@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import EditEventModal from "./EditEventModal";
 import { toast } from "sonner";
+import NewEvent from "./NewEvent";
 
 const EventsTable = () => {
   const [loading, setLoading] = useState(false);
@@ -145,6 +146,8 @@ const EventsTable = () => {
       {selectedWorkshop && (
         <EventCard eventData={selectedWorkshop} handleClose={handleClose} />
       )}
+
+      <NewEvent setRefresh={setRefresh} />
 
       {isEditModalOpen && (
         <EditEventModal

@@ -1,10 +1,10 @@
 "use client";
 import CloudinaryUpload from "@/app/lib/CloudinaryUpload";
-import { Loader2, PackagePlus, UploadCloud,X} from "lucide-react";
+import { Loader2, PackagePlus, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const NewWorkshop = () => {
+const NewWorkshop = ({ setRefresh }) => {
   const [formData, setFormData] = useState({
     name: "",
     time: "2024-11-15T10:00:00.000+00:00",
@@ -34,14 +34,13 @@ const NewWorkshop = () => {
     setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !formData.name ||
       !formData.description ||
       !formData.speaker ||
-      !formData.helpingMaterials||
+      !formData.helpingMaterials ||
       !selectedImages.length > 0
     ) {
       toast.error("Please fill all the fields");
@@ -78,6 +77,8 @@ const NewWorkshop = () => {
       .then((data) => {
         if (data.message === "Workshop added successfully") {
           toast.success(data.message);
+          setRefresh((prev) => !prev);
+          setShowModal(false);
         } else {
           toast.error(data.error);
         }
@@ -225,6 +226,7 @@ const NewWorkshop = () => {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
                 >
@@ -249,7 +251,7 @@ const NewWorkshop = () => {
       {!showModal && (
         <button
           onClick={() => setShowModal(true)}
-          className="absolute bottom-10 right-10 bg-white hover:bg-primary hover:text-white text-black p-2 rounded-md cursor-pointer"
+          className="fixed bottom-10 right-10 bg-white hover:bg-primary hover:text-white text-black p-2 rounded-md cursor-pointer"
         >
           <PackagePlus size={30} />
         </button>

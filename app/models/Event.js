@@ -6,6 +6,7 @@ const eventSchema = new mongoose.Schema(
     time: { type: Date, required: true },
     venue: { type: String, required: true },
     capacity: { type: Number, required: true },
+    teamSize: { type: Number, required: true },
     lock: { type: Boolean, default: false },
     description: { type: String },
     images: [{ type: String }],

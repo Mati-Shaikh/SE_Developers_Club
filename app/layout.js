@@ -5,15 +5,15 @@ import SessionWrapper from "@/components/auth/SessionWrapper";
 import { Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 
-
 const font = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"], // Add more weights here
 });
 
 export const metadata = {
-  title: "Software Engineers Developer Club",
-  description: "Official website of Software Engineers Developer Club",
+  title: "SES FAST-ISB",
+  description:
+    "Official website of Software Engineering Society, FAST-NUCES, Islamabad",
 };
 
 export default function RootLayout({ children }) {
@@ -27,6 +27,6 @@ export default function RootLayout({ children }) {
           <Footer />
         </body>
       </html>
-      </SessionWrapper>
+    </SessionWrapper>
   );
 }

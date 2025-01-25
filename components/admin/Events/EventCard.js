@@ -17,11 +17,10 @@ const EventCard = ({ eventData, handleClose }) => {
           &times;
         </button>
 
-        
         <div className="mb-4">
           {eventData.images && eventData.images.length > 0 ? (
             <Swiper
-            modules={[Pagination]}
+              modules={[Pagination]}
               pagination={{ clickable: true }}
               spaceBetween={10}
               slidesPerView={1}
@@ -58,6 +57,9 @@ const EventCard = ({ eventData, handleClose }) => {
         </p>
         <p className="text-gray-300 mb-4">
           <strong>Capacity:</strong> {eventData.capacity}
+        </p>
+        <p className="text-gray-300 mb-4">
+          <strong>Team Size:</strong> {eventData.teamSize}
         </p>
 
         {/* Helping Materials */}

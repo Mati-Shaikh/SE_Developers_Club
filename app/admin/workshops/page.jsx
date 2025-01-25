@@ -1,4 +1,3 @@
-import NewWorkshop from "@/components/admin/WorkShops/NewWks";
 import WksTable from "@/components/admin/WorkShops/WksTable";
 
 export default function AdminWorkshops() {
@@ -8,7 +7,6 @@ export default function AdminWorkshops() {
         All SES Workshops
       </div>
       <WksTable />
-      <NewWorkshop />
     </div>
   );
 }

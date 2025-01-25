@@ -6,8 +6,10 @@ export async function POST(req) {
   await dbConnect();
 
   try {
-    const { name, time, venue, capacity, description, images } =
+    const { name, time, venue, capacity, description, images, teamSize } =
       await req.json();
+
+    console.log(teamSize);
 
     const newEvent = new Event({
       name,
@@ -15,6 +17,7 @@ export async function POST(req) {
       venue,
       capacity,
       lock: false,
+      teamSize: Number(teamSize),
       description,
       images,
     });

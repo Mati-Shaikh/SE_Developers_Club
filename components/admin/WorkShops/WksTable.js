@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import WksCard from "./WksCard";
 import EditWorkshopModal from "./EditWorkshopModal";
 import { toast } from "sonner";
+import NewWorkshop from "./NewWks";
 
 const WksTable = () => {
   const [loading, setLoading] = useState(false);
@@ -146,6 +147,8 @@ const WksTable = () => {
       {loading && (
         <Loader2 className="m-4 mr-2 h-6 w-6 text-white animate-spin" />
       )}
+
+      <NewWorkshop setRefresh={setRefresh} />
 
       {selectedWorkshop && (
         <WksCard wksData={selectedWorkshop} handleClose={handleClose} />
