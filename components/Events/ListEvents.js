@@ -38,7 +38,7 @@ const ListEvents = () => {
       <h3 className="text-lg md:text-3xl mb-4 md:mb-10 font-bold">
         All Events Organized by SES
       </h3>
-      
+
       <div className="space-y-4 w-full">
         {items &&
           items.map((item, key) => (
@@ -57,7 +57,7 @@ const ListEvents = () => {
                     </div>
                     <Image
                       className="absolute right-10 top-6 rounded-lg h-40 w-auto"
-                      src={item.image}
+                      src={item.images[0]}
                       width={200}
                       height={200}
                       alt="workshop or ecent picture"

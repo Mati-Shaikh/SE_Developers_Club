@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import { X } from "lucide-react";
 const WksCard = ({ wksData, handleClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -10,16 +11,16 @@ const WksCard = ({ wksData, handleClose }) => {
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-2 right-2 text-white bg-red-500 rounded-full px-2 hover:bg-red-600 transition"
+          className="absolute top-2 right-2 text-white bg-red-500 rounded-full p-1 hover:bg-red-600 transition"
         >
-          &times;
+          <X size={16} />
         </button>
 
         {/* Event Images */}
         <div className="mb-4">
           {wksData.images && wksData.images.length > 0 ? (
             <Swiper
-            modules={[Pagination]}
+              modules={[Pagination]}
               pagination={{ clickable: true }}
               spaceBetween={10}
               slidesPerView={1}
@@ -44,8 +45,9 @@ const WksCard = ({ wksData, handleClose }) => {
 
         {/* Event Details */}
         <h2 className="text-3xl font-bold mb-4 text-white">{wksData.name}</h2>
-        <p className="text-gray-300 mb-2">
-          <strong>Description:</strong> {wksData.description}
+        <strong>Description:</strong>
+        <p className="text-gray-300 mb-2 max-h-32 overflow-y-auto">
+          {wksData.description}
         </p>
         <p className="text-gray-300 mb-2">
           <strong>Speaker:</strong> {wksData.speaker}
@@ -63,10 +65,12 @@ const WksCard = ({ wksData, handleClose }) => {
 
         {/* Helping Materials */}
         {wksData.helpingMaterials && (
-          <div className="mb-4">
+          <a target="_blank" href={wksData.helpingMaterials} className="mb-4">
             <strong>Helping Materials:</strong>{" "}
-            <span className="text-gray-300">{wksData.helpingMaterials}</span>
-          </div>
+            <span className="text-blue-600 underline">
+              {wksData.helpingMaterials}
+            </span>
+          </a>
         )}
       </div>
     </div>

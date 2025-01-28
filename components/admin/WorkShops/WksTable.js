@@ -103,7 +103,7 @@ const WksTable = () => {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 relative">
+          <tbody className="divide-y divide-gray-200 relative bg-neutral-800">
             {items &&
               items.map((i, k) => (
                 <tr key={k} className="divide-x">
@@ -142,6 +142,12 @@ const WksTable = () => {
                 </tr>
               ))}
           </tbody>
+
+          {!loading && items && items.length === 0 && (
+            <caption className="caption-bottom text-center text-gray-400 p-5 text-xl font-semibold">
+              No workshops found.
+            </caption>
+          )}
         </table>
       </div>
       {loading && (

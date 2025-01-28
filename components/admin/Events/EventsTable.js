@@ -67,7 +67,7 @@ const EventsTable = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
-          // console.log(data);
+          console.log(data);
           setItems(data.data);
           setLoading(false);
         } else {
@@ -95,13 +95,16 @@ const EventsTable = () => {
               </th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">Venue</th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">
+                Team Size
+              </th>
+              <th className="whitespace-nowrap px-4 py-2 font-bold">
                 Capacity
               </th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">Actions</th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 relative">
+          <tbody className="divide-y divide-gray-200 relative bg-neutral-800">
             {items &&
               items.map((i, k) => (
                 <tr key={k} className="divide-x">
@@ -112,6 +115,8 @@ const EventsTable = () => {
                     {new Date(i.time).toLocaleString()}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">{i.venue}</td>
+                  <td className="whitespace-nowrap px-4 py-2">{i.teamSize}</td>
+
                   <td className="whitespace-nowrap px-4 py-2">{i.capacity}</td>
 
                   <td className="whitespace-nowrap px-4 py-2 space-x-2 w-60">
@@ -137,6 +142,12 @@ const EventsTable = () => {
                 </tr>
               ))}
           </tbody>
+
+          {!loading && items && items.length === 0 && (
+            <caption className="caption-bottom text-center text-gray-400 p-5 text-xl font-semibold">
+              No events found.
+            </caption>
+          )}
         </table>
       </div>
       {loading && (

@@ -86,6 +86,7 @@ const DnR = () => {
               <RegisterForm
                 id={item._id}
                 usecase={path.split("/")[1] === "events" ? "Event" : "Workshop"}
+                teamSize={item.teamSize}
               />
             </div>
           )}

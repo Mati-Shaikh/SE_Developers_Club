@@ -242,7 +242,7 @@ const RegistrationTable = () => {
           <thead className="ltr:text-left rtl:text-right">
             <tr className="bg-slate-800 divide-x">
               <th className="whitespace-nowrap px-4 py-2 font-bold">
-                User Name
+                Team Members
               </th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">Email</th>
               <th className="whitespace-nowrap px-4 py-2 font-bold">
@@ -261,21 +261,29 @@ const RegistrationTable = () => {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 relative">
+          <tbody className="divide-y divide-gray-200 relative bg-neutral-800">
             {registrations &&
               registrations.map((registration, index) => (
                 <tr key={index} className="divide-x">
-                  <td className="whitespace-nowrap px-4 py-2 font-medium">
-                    {registration.userInfo.name}
+                  <td className="whitespace-nowrap px-4 py-2 font-medium divide-y-[1px] divide-neutral-600">
+                    {registration.userInfo.map((item, key) => (
+                      <p key={key}>{item.name}</p>
+                    ))}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2 font-medium">
-                    {registration.userInfo.email}
+                  <td className="whitespace-nowrap px-4 py-2 font-medium divide-y-[1px] divide-neutral-600">
+                    {registration.userInfo.map((item, key) => (
+                      <p key={key}>{item.email}</p>
+                    ))}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
-                    {registration.userInfo.department}
+                  <td className="whitespace-nowrap px-4 py-2 divide-y-[1px] divide-neutral-600">
+                    {registration.userInfo.map((item, key) => (
+                      <p key={key}>{item.department}</p>
+                    ))}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-2">
-                    {registration.userInfo.rollno}
+                  <td className="whitespace-nowrap px-4 py-2 divide-y-[1px] divide-neutral-600">
+                    {registration.userInfo.map((item, key) => (
+                      <p key={key}>{item.rollno}</p>
+                    ))}
                   </td>
                   <td className="whitespace-nowrap px-4 py-2">
                     {registration.eventOrWorkshopName}
@@ -306,6 +314,12 @@ const RegistrationTable = () => {
                 </tr>
               ))}
           </tbody>
+
+          {!loading && registrations && registrations.length === 0 && (
+            <caption className="caption-bottom text-center text-gray-400 p-5 text-xl font-semibold">
+              No registrations found.
+            </caption>
+          )}
         </table>
       </div>
       {loading && (

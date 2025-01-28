@@ -41,7 +41,10 @@ const NewWorkshop = ({ setRefresh }) => {
       !formData.description ||
       !formData.speaker ||
       !formData.helpingMaterials ||
-      !selectedImages.length > 0
+      !selectedImages.length > 0 ||
+      !formData.time ||
+      !formData.venue < 0 ||
+      !formData.capacity
     ) {
       toast.error("Please fill all the fields");
       return;

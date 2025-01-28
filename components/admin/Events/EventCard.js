@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
+import { X } from "lucide-react";
 
 const EventCard = ({ eventData, handleClose }) => {
   return (
@@ -12,9 +13,9 @@ const EventCard = ({ eventData, handleClose }) => {
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-2 right-2 text-white bg-red-500 rounded-full px-2 hover:bg-red-600 transition"
+          className="absolute top-2 right-2 text-white bg-red-500 rounded-full p-1 hover:bg-red-600 transition"
         >
-          &times;
+          <X size={16} />
         </button>
 
         <div className="mb-4">
@@ -45,8 +46,9 @@ const EventCard = ({ eventData, handleClose }) => {
 
         {/* Event Details */}
         <h2 className="text-3xl font-bold mb-4 text-white">{eventData.name}</h2>
-        <p className="text-gray-300 mb-2">
-          <strong>Description:</strong> {eventData.description}
+        <strong>Description:</strong>
+        <p className="text-gray-300 mb-2 max-h-32 overflow-y-auto">
+          {eventData.description}
         </p>
         <p className="text-gray-300 mb-2">
           <strong>Date & Time:</strong>{" "}

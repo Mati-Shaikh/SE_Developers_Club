@@ -17,8 +17,6 @@ const NewEvent = ({ setRefresh }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [uploadedUrls, setUploadedUrls] = useState([]);
-  const [isUploading, setIsUploading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,7 +39,7 @@ const NewEvent = ({ setRefresh }) => {
       !formData.name ||
       !formData.time ||
       !formData.venue ||
-      !formData.capacity ||
+      !formData.capacity < 1 ||
       !formData.description ||
       !selectedImages.length > 0
     ) {
